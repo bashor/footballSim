@@ -61,7 +61,7 @@ public class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: A
     }
 }
 
-private class Player(val logic: PlayerLogic, override val sym: Char) : GameObject {
+private class Player(val logic: PlayerLogic, override val sym: Char): GameObject {
     public override fun action(arena: Arena): Action =
         logic.action(arena.getCoordinates(this), arena)
 

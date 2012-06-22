@@ -1,6 +1,6 @@
 package ru.spbau.bashorov.footballSim.public
 
-public class KickBall(val direction: Direction) : Action
+public class KickBall(val direction: Direction): Action
 
 public enum class Direction {
     NOWHERE;

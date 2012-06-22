@@ -3,6 +3,7 @@ package ru.spbau.bashorov.footballSim
 import java.io.PrintStream
 import java.util.ArrayList
 import ru.spbau.bashorov.footballSim.public.*
+import ru.spbau.bashorov.footballSim.public.utils.*
 
 public class Arena (val height: Int, val width: Int): ReadOnlyArena {
     private val BORDER_HORIZONTAL = '\u2501'
@@ -44,7 +45,7 @@ public class Arena (val height: Int, val width: Int): ReadOnlyArena {
 
         fun sqr(value: Int): Double = (value * value).toDouble()
 
-        val distance = Math.max(Math.abs(position._1 - currentPosition._1),  Math.abs(position._2 - currentPosition._2))
+        val distance = position - currentPosition
 
         if (distance > 1) {
             throw Exception("can not move to ${position}")
@@ -90,7 +91,7 @@ public class Arena (val height: Int, val width: Int): ReadOnlyArena {
     public fun print(out: PrintStream) {
         fun line (cornerLeft: Char, cornerRight: Char) {
             out.print(cornerLeft)
-            for (j in 0..width-1) {
+            for (j in 0..width - 1) {
                 out.print(BORDER_HORIZONTAL)
             }
             out.println(cornerRight)

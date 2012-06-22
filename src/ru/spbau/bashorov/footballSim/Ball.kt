@@ -14,7 +14,7 @@ val DURATION_TO_COORD_OFFSET = hashMap(
         Direction.SOUTHWEST to #(-1, -1),
         Direction.SOUTHEAST to #(-1, +1))
 
-public class Ball : GameObject {
+public class Ball: GameObject {
     public override fun action(arena: Arena): Action {
         if (direction == Direction.NOWHERE)
             return Nothing();
@@ -54,7 +54,7 @@ public class Ball : GameObject {
         direction = kickAction.direction
     }
 
-    private var direction : Direction = Direction.NOWHERE
+    private var direction: Direction = Direction.NOWHERE
     // KT без public доступ обнаруживается только в компайл тайме
     public override val sym: Char = '\u25CF' // '\u25C9'
 }
