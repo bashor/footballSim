@@ -2,8 +2,9 @@ package ru.spbau.bashorov.footballSim
 
 import java.io.PrintStream
 import java.util.ArrayList
+import ru.spbau.bashorov.footballSim.public.*
 
-public class Arena (val height: Int, val width: Int) {
+public class Arena (val height: Int, val width: Int): ReadOnlyArena {
     private val BORDER_HORIZONTAL = '\u2501'
     private val BORDER_VERTICAL = '\u2503'
 
@@ -16,8 +17,17 @@ public class Arena (val height: Int, val width: Int) {
 
     private val cells = Array<Array<GameObject?>>(height, {arrayOfNulls<GameObject>(width)})
 
+    private var ball: Ball? = null
+
     public fun addObjects(objects: ArrayList<GameObject>) {
         for (i in objects.indices) {
+            if (objects[i] is Ball) { // KT
+                if (ball !== null) {
+                    throw Exception("На поле должен быть только один мяч")
+                }
+
+                ball = objects[i] as Ball // KT
+            }
             cells[i / width] [i % width] = objects[i];
         }
     }
@@ -44,7 +54,7 @@ public class Arena (val height: Int, val width: Int) {
         cells[currentPosition._1][currentPosition._2] = null
     }
 
-    public fun getCoordinates(obj: GameObject): #(Int, Int) {
+    private fun <T>getCoordinatesHelper(obj: T): #(Int, Int) {
         for (i in cells.indices) {
             for (j in cells[i].indices) {
                 if (cells[i][j] == obj)
@@ -54,7 +64,22 @@ public class Arena (val height: Int, val width: Int) {
         throw Exception("object not found")
     }
 
-    public fun cellIsFree(position: #(Int, Int)): Boolean {
+    override public fun getCoordinates(obj: PlayerLogic): #(Int, Int) {
+        return getCoordinatesHelper(obj)
+    }
+
+    public fun getCoordinates(obj: GameObject): #(Int, Int) {
+        return getCoordinatesHelper(obj)
+    }
+
+    public override fun getBallCoordinates(): #(Int, Int) {
+        if (ball === null) {
+            throw Exception("Ball not found")
+        }
+        return getCoordinates(ball!!);
+    }
+
+    override public fun cellIsFree(position: #(Int, Int)): Boolean {
         if (position._1 < 0 || position._1 >= width || position._2 < 0 || position._2 >= height) {
             throw IllegalArgumentException("")
         }

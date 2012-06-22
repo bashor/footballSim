@@ -1,6 +1,7 @@
 package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
+import ru.spbau.bashorov.footballSim.public.*
 
 public class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena) {
     private val FIRST_TEAM_SYMBOLS  = "1234567890#$"
@@ -62,5 +63,8 @@ public class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: A
 
 private class Player(val logic: PlayerLogic, override val sym: Char) : GameObject {
     public override fun action(arena: Arena): Action =
-        logic.action()
+        logic.action(arena.getCoordinates(this), arena)
+
+    public fun equals(obj: Any?): Boolean =
+        this === obj || logic === obj
 }

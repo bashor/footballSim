@@ -1,17 +1,20 @@
-import ru.spbau.bashorov.footballSim.Team
-import ru.spbau.bashorov.footballSim.PlayerLogic
-import ru.spbau.bashorov.footballSim.Action
-import ru.spbau.bashorov.footballSim.Nothing
+
+import ru.spbau.bashorov.footballSim.public.*
+import ru.spbau.bashorov.footballSim.public.utils.*
 
 public class TestTeamOne : Team {
 
-    class Logic : PlayerLogic {
-        override fun action() : Action {
+    // parent is workaround, because *inner* annotation still does not work
+    /*inner*/ class Logic(val parent: Team) : PlayerLogic {
+        override fun action(position: #(Int, Int), arena: ReadOnlyArena): Action {
+            if (arena.getBallCoordinates().isApproachableFrom(position))
+                return KickBall(Direction.NORTHEAST)
             return Nothing()//Move(#(1,0))
         }
         override val initPosition: #(Int, Int) = #(1, 2)
-
     }
 
-    override fun getPlayers(): Array<PlayerLogic> = array(Logic(), Logic(), Logic(), Logic())
+    val team = array<PlayerLogic>(Logic(this), Logic(this), Logic(this), Logic(this))
+
+    override fun getPlayers(): Array<PlayerLogic> = team
 }

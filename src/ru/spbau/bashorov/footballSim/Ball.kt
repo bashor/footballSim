@@ -1,7 +1,10 @@
 package ru.spbau.bashorov.footballSim
 
+import ru.spbau.bashorov.footballSim.public.*
+
 // KT static не работает :(
-private val DURATION_TO_COORD_OFFSET = hashMap(
+//private //KT не видно внутри функции
+val DURATION_TO_COORD_OFFSET = hashMap(
         Direction.NORTH     to #(+1,  0),
         Direction.SOUTH     to #(-1,  0),
         Direction.WEST      to #( 0, +1),
@@ -38,8 +41,9 @@ public class Ball : GameObject {
         if (newPosition._2 >= arena.height)
             newPosition = #(newPosition._1, arena.height - 1)
 
+        direction = Direction.NOWHERE
+
         if (!arena.cellIsFree(newPosition)) {
-            direction = Direction.NOWHERE
             return Nothing()
         }
 
