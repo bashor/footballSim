@@ -1,3 +1,5 @@
 package ru.spbau.bashorov.footballSim.public
 
-public trait Action
+public trait Action {
+    internal fun invert(arena: ReadOnlyArena): Action
+}

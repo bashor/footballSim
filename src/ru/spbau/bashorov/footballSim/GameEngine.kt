@@ -3,12 +3,16 @@ package ru.spbau.bashorov.footballSim
 import java.util.ArrayList
 import ru.spbau.bashorov.footballSim.public.*
 
-public class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena) {
-    private val FIRST_TEAM_SYMBOLS  = "1234567890#$"
-    private val SECOND_TEAM_SYMBOLS = "ABCDEFGHKLMN"
+class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, val matchDuration: Int) {
+    private class object {
+        private val FIRST_TEAM_SYMBOLS  = "1234567890#$"
+        private val SECOND_TEAM_SYMBOLS = "ABCDEFGHKLMN"
+    }
 
     private val activeObjects = ArrayList<GameObject>()
     private val ball = Ball()
+    private var firstTeamScore = 0
+    private var secondTeamScore = 0
 
     static {
         val firstTeamPlayers = firstTeam.getPlayers()
@@ -18,22 +22,39 @@ public class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: A
             throw Exception("size")
         }
 
-        fun registerPlayers(players: Array<PlayerLogic>, teamSymbols: String) {
+        fun registerPlayers(players: Array<PlayerLogic>, teamSymbols: String, invertCoordinates: Boolean) {
             var i = 0
             players forEach {
-                activeObjects.add(Player(it, teamSymbols[i++]))
+                activeObjects.add(Player(it, teamSymbols[i++], invertCoordinates))
             }
         }
 
-        registerPlayers(firstTeamPlayers, FIRST_TEAM_SYMBOLS)
-        registerPlayers(secondTeamPlayers, SECOND_TEAM_SYMBOLS)
+        registerPlayers(firstTeamPlayers, FIRST_TEAM_SYMBOLS, false)
+        registerPlayers(secondTeamPlayers, SECOND_TEAM_SYMBOLS, true)
 
         activeObjects.add(ball)
 
         arena.addObjects(activeObjects)
+        arena.resetObjectsPostions()
+
+        arena.addGoalListener({
+            val y = arena.getBallCoordinates()._2
+            if (y < 0)
+                firstTeamScore++
+            else if (y >= arena.height)
+                secondTeamScore++
+
+            arena.resetObjectsPostions()
+        })
+
+        arena.addOutListener({
+
+        })
     }
+
     public fun run() {
-        while (true) {
+        arena.print(System.out)
+        for (time in 0..matchDuration) {
             runOnce()
         }
     }
@@ -61,9 +82,40 @@ public class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: A
     }
 }
 
-private class Player(val logic: PlayerLogic, override val sym: Char): GameObject {
-    public override fun action(arena: Arena): Action =
-        logic.action(arena.getCoordinates(this), arena)
+private class Player(val logic: PlayerLogic, override val sym: Char, private val invertCoordinates: Boolean): GameObject {
+    private class InvertCoordinatesArena(private val arena: ReadOnlyArena) : ReadOnlyArena {
+        public override val height: Int = arena.height
+        public override val width: Int = arena.width
+        public override val goalWidth: Int = arena.goalWidth
+
+        public override fun getCoordinates(obj: PlayerLogic): #(Int, Int) =
+            invertCoordinates(arena, arena.getCoordinates(obj))
+
+        public override fun cellIsFree(position: #(Int, Int)): Boolean =
+            arena.cellIsFree(invertCoordinates(arena, position))
+
+        public override fun getBallCoordinates(): #(Int, Int) =
+            invertCoordinates(arena, arena.getBallCoordinates())
+    }
+
+    public override fun action(arena: Arena): Action {
+        var position = arena.getCoordinates(this)
+        var readOnlyArena: ReadOnlyArena = arena
+        if (invertCoordinates) {
+            position = invertCoordinates(arena, position)
+            readOnlyArena = InvertCoordinatesArena(arena)
+        }
+
+        val action = logic.action(position, readOnlyArena)
+
+        return if (invertCoordinates) action.invert(arena) else action
+    }
+
+    public override fun getInitPosition(arena: Arena): #(Int, Int) =
+        if (invertCoordinates)
+            invertCoordinates(arena, logic.getInitPosition(InvertCoordinatesArena(arena)))
+        else
+            logic.getInitPosition(arena)
 
     public fun equals(obj: Any?): Boolean =
         this === obj || logic === obj
