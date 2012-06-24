@@ -42,7 +42,7 @@ private abstract class ArenaWrapperAbstract(protected final val player: GamePlay
 private class ArenaWrapper(player: GamePlayer, arena: GameArena): ArenaWrapperAbstract(player, arena) {
     public override fun getCellStatus(position: #(Int, Int)): CellStatus = arena.getCellStatus(position, player)
     public override fun getCoordinates(obj: Player): #(Int, Int) = arena.getCoordinates(obj)
-    public override fun getBallCoordinates(): #(Int, Int) = getBallCoordinates()
+    public override fun getBallCoordinates(): #(Int, Int) = arena.getBallCoordinates()
 }
 
 private class ArenaInvertCoordinatesWrapper(player: GamePlayer, arena: GameArena): ArenaWrapperAbstract(player, arena) {

@@ -3,8 +3,7 @@ import ru.spbau.bashorov.footballSim.public.Exceptions.AchievablePositionNotFoun
 import ru.spbau.bashorov.footballSim.public.utils.*
 
 public class SimpleTeam(public override val name: String): Team {
-    // parent is workaround, because *inner* annotation still does not work
-    /*inner*/ class Logic(val parent: Team): Player {
+    class Logic(): Player {
         override fun action(position: #(Int, Int), arena: Arena): Action {
             val ballPosition = arena.getBallCoordinates()
             if (ballPosition.isAchievableFrom(position)){
@@ -39,9 +38,7 @@ public class SimpleTeam(public override val name: String): Team {
         }
     }
 
-    val team = array<Player>(Logic(this)
-            , Logic(this), Logic(this), Logic(this)
-    )
+    val team = array<Player>(Logic(), Logic(), Logic(), Logic())
 
     override fun getPlayers(): Array<Player> = team
 }
