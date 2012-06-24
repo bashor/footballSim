@@ -6,7 +6,7 @@ import ru.spbau.bashorov.footballSim.public.*
 //private //KT не видно внутри функции
 
 class Ball: GameObject {
-   public override fun action(arena: Arena): Action {
+    public override fun action(arena: Arena): Action {
         if (direction == Direction.NOWHERE)
             return Nothing();
 

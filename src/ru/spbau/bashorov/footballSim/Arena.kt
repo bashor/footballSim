@@ -168,7 +168,7 @@ class Arena (
 
     public fun getObjectNearestTo(obj: GameObject, checker: (GameObject)->Boolean): GameObject {
         val objPosition = getCoordinates(obj)
-        activeObjects.sort({a, b -> (getCoordinates(a)-objPosition).compareTo(getCoordinates(b)-objPosition)})
+        activeObjects.sort({a, b -> (getCoordinates(a) - objPosition).compareTo(getCoordinates(b) - objPosition)})
         for (obj in activeObjects) {
             if (checker(obj)) {
                 return obj
@@ -177,7 +177,7 @@ class Arena (
         throw Exception()
     }
 
-    public fun print(team1Name: String, team1Score:Int, team2Name: String, team2Score:Int, out: PrintStream = System.out) {
+    public fun print(team1Name: String, team1Score: Int, team2Name: String, team2Score: Int, out: PrintStream = System.out) {
 
         private val BORDER_HORIZONTAL   = '\u2501'
         private val BORDER_VERTICAL     = '\u2503'
@@ -205,7 +205,7 @@ class Arena (
             out.println(cornerRight)
         }
 
-        out.println(team1Score.toString() + "\t"  + team1Name)
+        out.println(team1Score.toString() + "\t" + team1Name)
         out.println(team2Score.toString() + "\t" + team2Name)
 
         line(CORNER_TOP_LEFT, CORNER_TOP_RIGHT)

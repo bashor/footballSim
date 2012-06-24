@@ -2,7 +2,7 @@ package ru.spbau.bashorov.footballSim.public
 
 import java.util.Map
 
-public enum class Direction(public val shift: #(Int,Int)) {
+public enum class Direction(public val shift: #(Int, Int)) {
     NOWHERE:       Direction(#( 0, 0))
     LEFT:          Direction(#(-1, 0))
     RIGHT:         Direction(#(+1, 0))

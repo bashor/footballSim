@@ -4,7 +4,7 @@ import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.utils.*
 
 private class Player(public val team: Team, val logic: PlayerLogic, override val sym: Char, private val invertCoordinates: Boolean): GameObject {
-    private class InvertCoordinatesArena(private val arena: ReadOnlyArena) : ReadOnlyArena {
+    private class InvertCoordinatesArena(private val arena: ReadOnlyArena): ReadOnlyArena {
         public override val height: Int = arena.height
         public override val width: Int = arena.width
         public override val goalWidth: Int = arena.goalWidth
