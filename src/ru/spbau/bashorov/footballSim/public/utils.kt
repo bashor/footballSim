@@ -24,10 +24,10 @@ fun stepTo(from: #(Int, Int), to: #(Int, Int), arena: Arena): #(Int, Int) {
             from + Direction.BACKWARD.shift,
             from + Direction.LEFT.shift,
             from + Direction.RIGHT.shift,
-            from + Direction.FORWARDLEFT.shift,
-            from + Direction.FORWARDRIGHT.shift,
-            from + Direction.BACKWARDLEFT.shift,
-            from + Direction.BACKWARDRIGHT.shift)
+            from + Direction.FORWARD_LEFT.shift,
+            from + Direction.FORWARD_RIGHT.shift,
+            from + Direction.BACKWARD_LEFT.shift,
+            from + Direction.BACKWARD_RIGHT.shift)
 
     achievable.sort({a, b -> (to.calcDistanceTo(a)).compareTo(to.calcDistanceTo(b))});
     for (i in achievable) {

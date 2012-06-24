@@ -8,12 +8,12 @@ public enum class Direction(public val shift: #(Int, Int)) {
     RIGHT:         Direction(#(+1, 0))
     FORWARD:       Direction(#( 0, 1))
     BACKWARD:      Direction(#( 0,-1))
-    FORWARDLEFT:   Direction(#(-1, 1))
-    FORWARDRIGHT:  Direction(#( 1, 1))
-    BACKWARDLEFT:  Direction(#(-1,-1))
-    BACKWARDRIGHT: Direction(#( 1,-1))
+    FORWARD_LEFT:   Direction(#(-1, 1))
+    FORWARD_RIGHT:  Direction(#( 1, 1))
+    BACKWARD_LEFT:  Direction(#(-1,-1))
+    BACKWARD_RIGHT: Direction(#( 1,-1))
 
-    // workaround, because abstract method for enum dosn't work fully now
+    // workaround, because abstract method for enum doesn't work fully now
     public fun invert(): Direction {
         public val INVERT_DIRECTION: Map<Direction, Direction> = hashMap(
                 Direction.NOWHERE       to Direction.NOWHERE,
@@ -21,10 +21,10 @@ public enum class Direction(public val shift: #(Int, Int)) {
                 Direction.RIGHT         to Direction.RIGHT,
                 Direction.FORWARD       to Direction.BACKWARD,
                 Direction.BACKWARD      to Direction.FORWARD,
-                Direction.FORWARDLEFT   to Direction.BACKWARDRIGHT,
-                Direction.FORWARDRIGHT  to Direction.BACKWARDLEFT,
-                Direction.BACKWARDLEFT  to Direction.FORWARDRIGHT,
-                Direction.BACKWARDRIGHT to Direction.FORWARDLEFT)
+                Direction.FORWARD_LEFT   to Direction.BACKWARD_RIGHT,
+                Direction.FORWARD_RIGHT  to Direction.BACKWARD_LEFT,
+                Direction.BACKWARD_LEFT  to Direction.FORWARD_RIGHT,
+                Direction.BACKWARD_RIGHT to Direction.FORWARD_LEFT)
 
         return INVERT_DIRECTION[this] ?: Direction.NOWHERE
     }
@@ -36,7 +36,7 @@ public val SHIFT_TO_DIRECTION: Map<#(Int, Int), Direction> = hashMap(
         #(+1, 0) to Direction.RIGHT,
         #( 0, 1) to Direction.FORWARD,
         #( 0,-1) to Direction.BACKWARD,
-        #(-1, 1) to Direction.FORWARDLEFT,
-        #( 1, 1) to Direction.FORWARDRIGHT,
-        #(-1,-1) to Direction.BACKWARDLEFT,
-        #( 1,-1) to Direction.BACKWARDRIGHT)
+        #(-1, 1) to Direction.FORWARD_LEFT,
+        #( 1, 1) to Direction.FORWARD_RIGHT,
+        #(-1,-1) to Direction.BACKWARD_LEFT,
+        #( 1,-1) to Direction.BACKWARD_RIGHT)

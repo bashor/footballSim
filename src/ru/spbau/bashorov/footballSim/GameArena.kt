@@ -45,7 +45,7 @@ class GameArena (
         outListeners.add(handler)
     }
 
-    private fun notify(liseners: List<()->Unit>) = liseners.forEach({ it() })
+    private fun notify(listeners: List<()->Unit>) = listeners.forEach({ it() })
 
     public fun resetObjectsPositions() {
         for (i in cells.indices) {
