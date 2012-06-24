@@ -169,9 +169,9 @@ class Arena (
     public fun getObjectNearestTo(obj: GameObject, checker: (GameObject)->Boolean): GameObject {
         val objPosition = getCoordinates(obj)
         activeObjects.sort({a, b -> (getCoordinates(a) - objPosition).compareTo(getCoordinates(b) - objPosition)})
-        for (obj in activeObjects) {
-            if (checker(obj)) {
-                return obj
+        for (ao in activeObjects) {
+            if (checker(ao)) {
+                return ao
             }
         }
         throw Exception()

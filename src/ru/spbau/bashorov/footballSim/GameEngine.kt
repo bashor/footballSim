@@ -31,7 +31,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
 
         arena.addObjects(activeObjects)
         arena.resetObjectsPostions()
-        arena.moveBallNearestTo({o -> o is Player && (o as Player)?.team === firstTeam ?: false})
+        arena.moveBallNearestTo({o -> o is Player && (o as Player).team === firstTeam})
 
         arena.addGoalListener({
             val y = arena.getBallCoordinates()._2
@@ -45,12 +45,12 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
             }
 
             arena.resetObjectsPostions()
-            arena.moveBallNearestTo({o -> o is Player && (o as Player)?.team === team ?: false})
+            arena.moveBallNearestTo({o -> o is Player && (o as Player).team === team})
         })
 
         arena.addOutListener({
             var team = if (whoLastKickBall?.team == secondTeam) firstTeam else secondTeam
-            arena.moveBallNearestTo({o -> o is Player && (o as Player)?.team === team ?: false})
+            arena.moveBallNearestTo({o -> o is Player && (o as Player).team === team})
         })
     }
 
