@@ -6,14 +6,17 @@ import ru.spbau.bashorov.footballSim.public.Direction
 import ru.spbau.bashorov.footballSim.public.Exceptions.AchievablePositionNotFoundException
 import ru.spbau.bashorov.footballSim.utils.sort
 
-public fun Tuple2<Int, Int>.minus(other: #(Int, Int)): Int =
+public fun Tuple2<Int, Int>.calcDistanceTo(other: #(Int, Int)): Int =
     Math.max(Math.abs(this._1 - other._1), Math.abs(this._2 - other._2))
 
 public fun Tuple2<Int, Int>.plus(other: #(Int, Int)): #(Int, Int) =
     #(this._1 + other._1, this._2 + other._2)
 
+public fun Tuple2<Int, Int>.minus(other: #(Int, Int)): #(Int, Int) =
+    #(this._1 - other._1, this._2 - other._2)
+
 public fun Tuple2<Int, Int>.isAchievableFrom(from: #(Int, Int)): Boolean =
-    (from - this) <= 1
+    (from.calcDistanceTo(this)) <= 1
 
 fun stepTo(from: #(Int, Int), to: #(Int, Int), arena: Arena): #(Int, Int) {
     val achievable = arrayList(
@@ -26,7 +29,7 @@ fun stepTo(from: #(Int, Int), to: #(Int, Int), arena: Arena): #(Int, Int) {
             from + Direction.BACKWARDLEFT.shift,
             from + Direction.BACKWARDRIGHT.shift)
 
-    achievable.sort({a, b -> (to - a).compareTo(to - b)});
+    achievable.sort({a, b -> (to.calcDistanceTo(a)).compareTo(to.calcDistanceTo(b))});
     for (i in achievable) {
         if (arena.getCellStatus(i) == CellStatus.FREE) {
             return i
