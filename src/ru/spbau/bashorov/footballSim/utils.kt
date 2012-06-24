@@ -1,11 +1,11 @@
 package ru.spbau.bashorov.footballSim.utils
 
-import ru.spbau.bashorov.footballSim.public.ReadOnlyArena
-import java.util.Collection
 import java.util.ArrayList
-import java.util.Comparator
+import java.util.Collection
 import java.util.Collections
+import java.util.Comparator
 import java.util.List
+import ru.spbau.bashorov.footballSim.public.ReadOnlyArena
 
 fun invertCoordinates(arena: ReadOnlyArena, coordinates: #(Int, Int)) =
     #(arena.width - 1 - coordinates._1, arena.height - 1 - coordinates._2)

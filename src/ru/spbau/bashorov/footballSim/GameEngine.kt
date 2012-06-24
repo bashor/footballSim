@@ -2,7 +2,6 @@ package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
 import ru.spbau.bashorov.footballSim.public.*
-import java.util.Collections
 import ru.spbau.bashorov.footballSim.utils.shuffle
 
 class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, val matchDuration: Int) {

@@ -2,10 +2,10 @@ package ru.spbau.bashorov.footballSim
 
 import java.io.PrintStream
 import java.util.ArrayList
+import java.util.List
 import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.utils.*
 import ru.spbau.bashorov.footballSim.utils.*
-import java.util.List
 
 class Arena (
         public override val height: Int,
