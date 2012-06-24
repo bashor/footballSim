@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2582d2a1-ee12-442c-b1d4-8b58049d521b" name="Default" comment="reformat">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/utils.kt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/TestTeamTwo.kt" afterPath="" />
+    <list default="true" id="2582d2a1-ee12-442c-b1d4-8b58049d521b" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Player.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Direction.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.kt" afterPath="$PROJECT_DIR$/src/Main.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TestTeamOne.kt" afterPath="$PROJECT_DIR$/src/TestTeamOne.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Arena.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Arena.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Ball.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Ball.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameObject.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameObject.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Action.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Action.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/PlayerLogic.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/PlayerLogic.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/ReadOnlyArena.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/ReadOnlyArena.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Team.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Team.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Move.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Move.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Nothing.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Nothing.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/utils.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/utils.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/utils.kt" afterPath="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/utils.kt" />
     </list>
     <ignored path="footballSim.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,6 +26,60 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CloverPlugin" class="com.cenqua.clover.idea.config.IdeaCloverConfig">
+    <loadPerTestData>true</loadPerTestData>
+    <projectRebuild class="com.cenqua.clover.idea.config.ProjectRebuild">ASK</projectRebuild>
+    <filteredHighlight>-4144960</filteredHighlight>
+    <relativeInitString>false</relativeInitString>
+    <lastProjectConfigTabSelected>0</lastProjectConfigTabSelected>
+    <buildWithClover>true</buildWithClover>
+    <periodicRefresh>false</periodicRefresh>
+    <notCoveredStripe>-65536</notCoveredStripe>
+    <flushPolicy>0</flushPolicy>
+    <viewIncludeAnnotation>true</viewIncludeAnnotation>
+    <alwaysExpandTestClasses>false</alwaysExpandTestClasses>
+    <languageLevel>1.3</languageLevel>
+    <manualInitString null="true" />
+    <flushInterval>5000</flushInterval>
+    <showInline>true</showInline>
+    <autoRefreshInterval>2000</autoRefreshInterval>
+    <showSummaryInToolwindow>true</showSummaryInToolwindow>
+    <autoRefresh>true</autoRefresh>
+    <coveredHighlight>-3605816</coveredHighlight>
+    <enabled>false</enabled>
+    <alwaysCollapseTestClasses>false</alwaysCollapseTestClasses>
+    <excludes null="true" />
+    <filteredStripe>-12566464</filteredStripe>
+    <calculateTestCoverage>true</calculateTestCoverage>
+    <instrumentTests>true</instrumentTests>
+    <outOfDateHighlight>-32</outOfDateHighlight>
+    <notCoveredHighlight>-341816</notCoveredHighlight>
+    <hideFullyCovered>false</hideFullyCovered>
+    <cloudReportIncludeSubpkgs>false</cloudReportIncludeSubpkgs>
+    <includes null="true" />
+    <includePassedTestCoverageOnly>true</includePassedTestCoverageOnly>
+    <testViewScope class="com.cenqua.clover.idea.config.TestViewScope">GLOBAL</testViewScope>
+    <testCaseLayout class="com.cenqua.clover.idea.config.TestCaseLayout">TEST_CASES</testCaseLayout>
+    <viewCoverage>true</viewCoverage>
+    <contextFilterSpec />
+    <coveredStripe>-16711936</coveredStripe>
+    <autoViewInCloudReport>true</autoViewInCloudReport>
+    <autoScroll>true</autoScroll>
+    <useGeneratedInitString>true</useGeneratedInitString>
+    <showGutter>true</showGutter>
+    <failedCoveredStripe>-14336</failedCoveredStripe>
+    <regexpContexts class="java.util.ArrayList" />
+    <flattenPackages>false</flattenPackages>
+    <autoScrollFromSource>false</autoScrollFromSource>
+    <showErrorMarks>true</showErrorMarks>
+    <showTooltips>true</showTooltips>
+    <showSummaryInToolbar>true</showSummaryInToolbar>
+    <span>0</span>
+    <modelScope class="com.cenqua.clover.idea.config.ModelScope">APP_CLASSES_ONLY</modelScope>
+    <outOfDateStripe>-256</outOfDateStripe>
+    <failedCoveredHighlight>-3920</failedCoveredHighlight>
+    <highlightCovered>true</highlightCovered>
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -36,7 +88,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt" line="6" class="Class at KickBall.kt:6" package="">
+      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" line="48" class="Class at GameEngine.kt:48" package="">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -49,7 +101,20 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" line="57" class="Class at GameEngine.kt:57" package="">
+      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" line="67" class="Class at GameEngine.kt:67" package="">
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" line="37" class="Class at GameEngine.kt:37" package="">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -62,7 +127,20 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Arena.kt" line="140" class="Class at Arena.kt:140" package="">
+      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" line="52" class="Class at GameEngine.kt:52" package="">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" line="60" class="Class at GameEngine.kt:60" package="">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -116,73 +194,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Ball.kt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Ball.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="37" selection-start="1666" selection-end="1666" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KickBall.kt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="11" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="GameEngine.kt" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="0" selection-start="1689" selection-end="1689" vertical-scroll-proportion="0.23129252">
+            <state line="60" column="0" selection-start="2129" selection-end="2129" vertical-scroll-proportion="2.255639">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerLogic.kt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/PlayerLogic.kt">
+      <file leaf-file-name="utils.kt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/utils.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="51" selection-start="199" selection-end="199" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Action.kt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Action.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="17" selection-start="85" selection-end="85" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestTeamOne.kt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TestTeamOne.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="42" selection-start="756" selection-end="756" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameObject.kt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameObject.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="43" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.kt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="95" selection-start="166" selection-end="166" vertical-scroll-proportion="0.0">
+            <state line="4" column="47" selection-start="157" selection-end="157" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -191,16 +215,70 @@
       <file leaf-file-name="Arena.kt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Arena.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="20" selection-start="2108" selection-end="2108" vertical-scroll-proportion="0.0">
+            <state line="53" column="21" selection-start="1686" selection-end="1686" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IntRange.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/kotlin-runtime.jar!/src/jet/IntRange.java">
+      <file leaf-file-name="TestTeamOne.kt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TestTeamOne.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="0" selection-start="2104" selection-end="2104" vertical-scroll-proportion="0.0">
+            <state line="49" column="5" selection-start="1894" selection-end="1894" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player.kt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Player.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="0" selection-start="1318" selection-end="1318" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.kt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/utils.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="4" selection-start="595" selection-end="595" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KickBall.kt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="87" selection-start="198" selection-end="198" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Direction.kt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Direction.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="0" selection-start="1251" selection-end="1251" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Move.kt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Move.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="41" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.kt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="103" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -219,22 +297,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Team.kt" />
-        <option value="$PROJECT_DIR$/src/TestTeamTwo.kt" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Action.kt" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Nothing.kt" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/utils.kt" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/utils.kt" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Move.kt" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/ReadOnlyArena.kt" />
-        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt" />
-        <option value="$PROJECT_DIR$/src/Main.kt" />
         <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameObject.kt" />
         <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/PlayerLogic.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Player.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Move.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Player.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Team.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Direction.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/utils.kt" />
         <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Ball.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Direction.kt" />
         <option value="$PROJECT_DIR$/src/TestTeamOne.kt" />
         <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Arena.kt" />
         <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt" />
+        <option value="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/utils.kt" />
+        <option value="$PROJECT_DIR$/src/Main.kt" />
       </list>
     </option>
   </component>
@@ -288,16 +366,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -307,7 +375,17 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PackageViewModuleNodeWrapper" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -327,7 +405,7 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -337,11 +415,11 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -351,15 +429,15 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -369,97 +447,19 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GameEngine.kt" />
-              <option name="myItemType" value="org.jetbrains.jet.plugin.projectView.JetFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="actions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="footballSim" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="actions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KickBall.kt" />
-              <option name="myItemType" value="org.jetbrains.jet.plugin.projectView.JetFileTreeNode" />
+              <option name="myItemType" value="com.cenqua.clover.idea.projectview.PsiDirectoryNodeWrapper" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -471,7 +471,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="editor.preferences.tabs" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -485,10 +485,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Actions" />
       <recent name="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public" />
-      <recent name="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Actions" />
       <recent name="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim" />
+      <recent name="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Actions" />
+      <recent name="$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Actions" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -634,6 +634,18 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="StatisticProjectComponent">
+    <option name="excludeCompilerOutput" value="true" />
+    <option name="excludeIdea9ArtifactDirectory" value="true" />
+    <option name="excludeTargetDirectories" value="true" />
+    <option name="activateWhenOpenProject" value="true" />
+    <option name="excludedDirectories">
+      <value>
+        <list size="0" />
+      </value>
+    </option>
+    <option name="fileTypes" value="class;svn-base;svn-work;Extra;gif;png;jpg;jpeg;bmp;tga;tiff;ear;war;zip;jar;iml;iws;ipr;bz2;gz;" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="2582d2a1-ee12-442c-b1d4-8b58049d521b" name="Default" comment="" />
@@ -660,7 +672,11 @@
       <created>1340393851400</created>
       <updated>1340393851400</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add Goal event&#10;add Out event&#10;improve public API &#10;&#10;">
+      <created>1340426346687</created>
+      <updated>1340426346687</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -689,23 +705,28 @@
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3937888" sideWeight="0.49121523" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39751554" sideWeight="0.5036603" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44665012" sideWeight="0.4827079" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.66129035" sideWeight="0.5121413" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23252392" sideWeight="0.2173913" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Kotlin" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3281825" sideWeight="0.6062112" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279503" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32754344" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cloverage" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Metrics" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23252392" sideWeight="0.6062112" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23252392" sideWeight="0.55334985" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46335405" sideWeight="0.4736457" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Test Runs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
@@ -747,7 +768,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="reformat" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Goal event&#10;add Out event&#10;improve public API &#10;&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -763,6 +784,7 @@
     <MESSAGE value="Init" />
     <MESSAGE value="change structure&#10;some bug fixes" />
     <MESSAGE value="reformat" />
+    <MESSAGE value="add Goal event&#10;add Out event&#10;improve public API &#10;&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -772,65 +794,16 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Nothing.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="13" selection-start="90" selection-end="90" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/utils.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Move.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="48" selection-start="270" selection-end="270" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Team.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="13" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/jdk1.6.0_31/src.zip!/java/lang/Object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="482" selection-end="482" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/ReadOnlyArena.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="11" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="11" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Ball.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="37" selection-start="1666" selection-end="1666" vertical-scroll-proportion="0.0">
+        <state line="37" column="7" selection-start="1078" selection-end="1078" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/PlayerLogic.kt">
+    <entry file="jar://$PROJECT_DIR$/lib/kotlin-runtime.jar!/src/jet/Function1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="51" selection-start="199" selection-end="199" vertical-scroll-proportion="0.0">
+        <state line="24" column="0" selection-start="742" selection-end="742" vertical-scroll-proportion="0.3318584">
           <folding />
         </state>
       </provider>
@@ -842,44 +815,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/kotlin-runtime.jar!/src/jet/IntRange.java">
+    <entry file="jar://$PROJECT_DIR$/lib/kotlin-runtime.jar!/src/jet/DefaultJetObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="0" selection-start="2104" selection-end="2104" vertical-scroll-proportion="0.0">
+        <state line="25" column="0" selection-start="771" selection-end="771" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/kotlin-runtime.jar!/src/jet/Tuple.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="813" selection-end="813" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/kotlin-runtime.jar!/src/jet/Tuple2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1238" selection-end="1238" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/KickBall.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="87" selection-start="198" selection-end="198" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/Direction.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="0" selection-start="1251" selection-end="1251" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TestTeamOne.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="42" selection-start="756" selection-end="756" vertical-scroll-proportion="0.0">
+        <state line="49" column="5" selection-start="1894" selection-end="1894" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameObject.kt">
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/actions/Move.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="43" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0">
+        <state line="5" column="41" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.kt">
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Player.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="95" selection-start="166" selection-end="166" vertical-scroll-proportion="0.0">
+        <state line="31" column="0" selection-start="1318" selection-end="1318" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/Arena.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="20" selection-start="2108" selection-end="2108" vertical-scroll-proportion="0.0">
+        <state line="53" column="21" selection-start="1686" selection-end="1686" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/utils.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="47" selection-start="157" selection-end="157" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="103" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/public/utils.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="4" selection-start="595" selection-end="595" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/spbau/bashorov/footballSim/GameEngine.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="0" selection-start="1689" selection-end="1689" vertical-scroll-proportion="0.23129252">
+        <state line="60" column="0" selection-start="2129" selection-end="2129" vertical-scroll-proportion="2.255639">
           <folding />
         </state>
       </provider>
@@ -924,6 +946,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
+          <last-edited>1.6</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -940,6 +963,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
