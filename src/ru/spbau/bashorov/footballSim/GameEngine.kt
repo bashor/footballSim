@@ -2,6 +2,8 @@ package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
 import ru.spbau.bashorov.footballSim.public.*
+import java.util.Collections
+import ru.spbau.bashorov.footballSim.utils.shuffle
 
 class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, val matchDuration: Int) {
     private class object {
@@ -13,57 +15,60 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
     private val ball = Ball()
     private var firstTeamScore = 0
     private var secondTeamScore = 0
+    private var whoLastKickBall: Player? = null
 
     static {
-        val firstTeamPlayers = firstTeam.getPlayers()
-        val secondTeamPlayers = secondTeam.getPlayers()
+        val firstTeamPlayers = firstTeam.getPlayers().copyOf()
+        val secondTeamPlayers = secondTeam.getPlayers().copyOf()
 
         if (firstTeamPlayers.size != secondTeamPlayers.size) {
             throw Exception("size")
         }
 
-        fun registerPlayers(players: Array<PlayerLogic>, teamSymbols: String, invertCoordinates: Boolean) {
-            var i = 0
-            players forEach {
-                activeObjects.add(Player(it, teamSymbols[i++], invertCoordinates))
-            }
-        }
-
-        registerPlayers(firstTeamPlayers, FIRST_TEAM_SYMBOLS, false)
-        registerPlayers(secondTeamPlayers, SECOND_TEAM_SYMBOLS, true)
+        registerPlayers(firstTeam, firstTeamPlayers, FIRST_TEAM_SYMBOLS, false)
+        registerPlayers(secondTeam, secondTeamPlayers, SECOND_TEAM_SYMBOLS, true)
 
         activeObjects.add(ball)
 
         arena.addObjects(activeObjects)
         arena.resetObjectsPostions()
+        arena.moveBallNearestTo({o -> o is Player && (o as Player)?.team === firstTeam ?: false})
 
         arena.addGoalListener({
             val y = arena.getBallCoordinates()._2
-            if (y < 0)
-                firstTeamScore++
-            else if (y >= arena.height)
+            var team = firstTeam
+            if (y <= 0) {
                 secondTeamScore++
+            }
+            else if (y >= arena.height - 1) {
+                firstTeamScore++
+                team = secondTeam
+            }
 
             arena.resetObjectsPostions()
+            arena.moveBallNearestTo({o -> o is Player && (o as Player)?.team === team ?: false})
         })
 
         arena.addOutListener({
-
+            var team = if (whoLastKickBall?.team == secondTeam) firstTeam else secondTeam
+            arena.moveBallNearestTo({o -> o is Player && (o as Player)?.team === team ?: false})
         })
     }
 
     public fun run() {
-        arena.print(System.out)
+        arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
         for (time in 0..matchDuration) {
             runOnce()
         }
     }
 
     private fun runOnce() {
+        activeObjects.shuffle()
         for (activeObject in activeObjects) {
             runAction(activeObject)
+            arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
         }
-        arena.print(System.out)
+//        arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
     }
 
     fun runAction(activeObject: GameObject) {
@@ -73,6 +78,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
                 arena.move(activeObject, action.position)
             }
             is KickBall -> {
+                whoLastKickBall = activeObject as Player
                 ball.kick(action)
                 runAction(ball)
             }
@@ -80,43 +86,11 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
             else -> throw Exception("beda")
         }
     }
-}
 
-private class Player(val logic: PlayerLogic, override val sym: Char, private val invertCoordinates: Boolean): GameObject {
-    private class InvertCoordinatesArena(private val arena: ReadOnlyArena) : ReadOnlyArena {
-        public override val height: Int = arena.height
-        public override val width: Int = arena.width
-        public override val goalWidth: Int = arena.goalWidth
-
-        public override fun getCoordinates(obj: PlayerLogic): #(Int, Int) =
-            invertCoordinates(arena, arena.getCoordinates(obj))
-
-        public override fun cellIsFree(position: #(Int, Int)): Boolean =
-            arena.cellIsFree(invertCoordinates(arena, position))
-
-        public override fun getBallCoordinates(): #(Int, Int) =
-            invertCoordinates(arena, arena.getBallCoordinates())
-    }
-
-    public override fun action(arena: Arena): Action {
-        var position = arena.getCoordinates(this)
-        var readOnlyArena: ReadOnlyArena = arena
-        if (invertCoordinates) {
-            position = invertCoordinates(arena, position)
-            readOnlyArena = InvertCoordinatesArena(arena)
+    fun registerPlayers(team: Team, players: Array<PlayerLogic>, teamSymbols: String, invertCoordinates: Boolean) {
+        var i = 0
+        players forEach {
+            activeObjects.add(Player(team, it, teamSymbols[i++], invertCoordinates))
         }
-
-        val action = logic.action(position, readOnlyArena)
-
-        return if (invertCoordinates) action.invert(arena) else action
     }
-
-    public override fun getInitPosition(arena: Arena): #(Int, Int) =
-        if (invertCoordinates)
-            invertCoordinates(arena, logic.getInitPosition(InvertCoordinatesArena(arena)))
-        else
-            logic.getInitPosition(arena)
-
-    public fun equals(obj: Any?): Boolean =
-        this === obj || logic === obj
 }

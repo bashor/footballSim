@@ -1,5 +1,6 @@
 package ru.spbau.bashorov.footballSim.public
 
 public trait Team {
-    fun getPlayers(): Array<PlayerLogic>
+    public val name: String
+    public fun getPlayers(): Array<PlayerLogic>
 }

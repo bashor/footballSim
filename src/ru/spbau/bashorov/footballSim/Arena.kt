@@ -4,6 +4,7 @@ import java.io.PrintStream
 import java.util.ArrayList
 import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.utils.*
+import ru.spbau.bashorov.footballSim.utils.*
 import java.util.List
 
 class Arena (
@@ -50,7 +51,7 @@ class Arena (
     }
 
     fun fireOut() {
-        for (h in goalListeners) {
+        for (h in outListeners) {
             h()
         }
     }
@@ -92,29 +93,28 @@ class Arena (
             goal = position._1 >= goalStart && position._1 < goalEnd
             out = !goal
         }
-        if (cells[position._2][position._1] != null) {
+        if (!goal && !out && cells[position._2][position._1] != null) {
             throw Exception("Can not move to ${position}")
         }
 
         val currentPosition = getCoordinates(activeObject)
 
         if (!(currentPosition isApproachableFrom position)) {
-            throw Exception("can not move to ${position}")
+            throw Exception("Can not move to ${position}")
         }
-
-        cells[position._2][position._1] = cells[currentPosition._2][currentPosition._1]
-        cells[currentPosition._2][currentPosition._1] = null
 
         if (goal)
             fireGoal()
         else if (out)
             fireOut()
+        else
+            moveObject(currentPosition, position)
     }
 
     private fun <T>getCoordinatesHelper(obj: T): #(Int, Int) {
-        for (i in cells.indices) {
-            for (j in cells[i].indices) {
-                if (cells[i][j] == obj)
+        for (j in cells.indices) {
+            for (i in cells[j].indices) {
+                if (cells[j][i] == obj)
                     return #(i, j)
             }
         }
@@ -144,7 +144,40 @@ class Arena (
         return cells[position._2][position._1] == null
     }
 
-    public fun print(out: PrintStream) {
+    private fun moveObject(currentPosition: #(Int, Int), newPosition: #(Int, Int)) {
+        cells[newPosition._2][newPosition._1] = cells[currentPosition._2][currentPosition._1]
+        cells[currentPosition._2][currentPosition._1] = null
+    }
+
+    public fun moveBallNearestTo(checker: (GameObject)->Boolean) {
+        fun tryMoveBallNear(o: GameObject): Boolean {
+            val ballPosition = getBallCoordinates()
+            val position = getCoordinates(o)
+
+            try {
+                val to = stepTo(position, #(position._1, height / 2), this)
+                moveObject(ballPosition, to)
+                return true
+            } catch (e: Exception){}
+
+            return false
+        }
+
+        getObjectNearestTo(ball!!, {o -> checker(o) && tryMoveBallNear(o) })
+    }
+
+    public fun getObjectNearestTo(obj: GameObject, checker: (GameObject)->Boolean): GameObject {
+        val objPosition = getCoordinates(obj)
+        activeObjects.sort({a, b -> (getCoordinates(a)-objPosition).compareTo(getCoordinates(b)-objPosition)})
+        for (obj in activeObjects) {
+            if (checker(obj)) {
+                return obj
+            }
+        }
+        throw Exception()
+    }
+
+    public fun print(team1Name: String, team1Score:Int, team2Name: String, team2Score:Int, out: PrintStream = System.out) {
 
         private val BORDER_HORIZONTAL   = '\u2501'
         private val BORDER_VERTICAL     = '\u2503'
@@ -171,6 +204,9 @@ class Arena (
             }
             out.println(cornerRight)
         }
+
+        out.println(team1Score.toString() + "\t"  + team1Name)
+        out.println(team2Score.toString() + "\t" + team2Name)
 
         line(CORNER_TOP_LEFT, CORNER_TOP_RIGHT)
 
