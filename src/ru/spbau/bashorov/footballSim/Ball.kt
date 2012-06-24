@@ -30,11 +30,9 @@ class Ball: GameObject {
 
         direction = Direction.NOWHERE
 
-        try {
-            if (!arena.cellIsFree(newPosition)) {
-                return Nothing()
-            }
-        } catch (e: Exception) {}
+        if (arena.getCellStatus(newPosition) != CellStatus.FREE) {
+            return Nothing()
+        }
 
         return Move(newPosition)
     }

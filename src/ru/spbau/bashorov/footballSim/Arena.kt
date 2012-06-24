@@ -65,7 +65,7 @@ class Arena (
 
         for (obj in activeObjects) {
             val position = obj.getInitPosition(this)
-            if (!cellIsFree(position))
+            if (getCellStatus(position) != CellStatus.FREE)
                 throw Exception("занято")
 
             cells[position._2][position._1] = obj
@@ -136,12 +136,28 @@ class Arena (
         return getCoordinates(ball!!);
     }
 
-    override public fun cellIsFree(position: #(Int, Int)): Boolean {
+    public override fun getCellStatus(position: #(Int, Int)): CellStatus =
+        getCellStatus(position, null)
+
+    public fun getCellStatus(position: #(Int, Int), player: Player?): CellStatus {
         if (position._1 < 0 || position._1 >= width || position._2 < 0 || position._2 >= height) {
-            throw IllegalArgumentException("")
+            return CellStatus.UNACHIEVABLE
         }
 
-        return cells[position._2][position._1] == null
+        return when (cells[position._2][position._1]) {
+            null -> CellStatus.FREE
+            is Ball -> CellStatus.BALL
+            is Player -> {
+                if (player == null) {
+                    CellStatus.OCCUPIED
+                }
+                else {
+                    val otherPlayer = cells[position._2][position._1] as Player
+                    if (player.team === otherPlayer.team) CellStatus.PARTNER else CellStatus.OPPONENT
+                }
+            }
+            else -> CellStatus.UNACHIEVABLE
+        }
     }
 
     private fun moveObject(currentPosition: #(Int, Int), newPosition: #(Int, Int)) {

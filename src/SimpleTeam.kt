@@ -5,13 +5,6 @@ public class SimpleTeam(public override val name: String): Team {
     // parent is workaround, because *inner* annotation still does not work
     /*inner*/ class Logic(val parent: Team): PlayerLogic {
         override fun action(position: #(Int, Int), arena: ReadOnlyArena): Action {
-            fun moveToIfFree(to: #(Int, Int)): Boolean {
-                try {
-                    return arena.cellIsFree(to)
-                } catch (e: Exception) {}
-                return false
-            }
-
             val ballPosition = arena.getBallCoordinates()
             if (ballPosition.isApproachableFrom(position)){
                 try {
@@ -36,7 +29,7 @@ public class SimpleTeam(public override val name: String): Team {
             for (i in 0..arena.height) {
                 for (j in -i..i) {
                     val pos = #(center + j, i)
-                    if (arena.cellIsFree(pos)) {
+                    if (arena.getCellStatus(pos) == CellStatus.FREE) {
                         return pos
                     }
                 }

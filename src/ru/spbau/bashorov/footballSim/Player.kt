@@ -4,19 +4,19 @@ import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.utils.*
 
 private class Player(public val team: Team, val logic: PlayerLogic, override val sym: Char, private val invertCoordinates: Boolean): GameObject {
-    private class InvertCoordinatesArena(private val arena: ReadOnlyArena): ReadOnlyArena {
+    private class InvertCoordinatesArena(private val player: Player, private val arena: Arena): ReadOnlyArena {
         public override val height: Int = arena.height
         public override val width: Int = arena.width
         public override val goalWidth: Int = arena.goalWidth
 
         public override fun getCoordinates(obj: PlayerLogic): #(Int, Int) =
-        invertCoordinates(arena, arena.getCoordinates(obj))
+            invertCoordinates(arena, arena.getCoordinates(obj))
 
-        public override fun cellIsFree(position: #(Int, Int)): Boolean =
-        arena.cellIsFree(invertCoordinates(arena, position))
+        public override fun getCellStatus(position: #(Int, Int)): CellStatus =
+            arena.getCellStatus(invertCoordinates(arena, position), player)
 
         public override fun getBallCoordinates(): #(Int, Int) =
-        invertCoordinates(arena, arena.getBallCoordinates())
+            invertCoordinates(arena, arena.getBallCoordinates())
     }
 
     public override fun action(arena: Arena): Action {
@@ -24,7 +24,7 @@ private class Player(public val team: Team, val logic: PlayerLogic, override val
         var readOnlyArena: ReadOnlyArena = arena
         if (invertCoordinates) {
             position = invertCoordinates(arena, position)
-            readOnlyArena = InvertCoordinatesArena(arena)
+            readOnlyArena = InvertCoordinatesArena(this, arena)
         }
 
         val action = logic.action(position, readOnlyArena)
@@ -34,7 +34,7 @@ private class Player(public val team: Team, val logic: PlayerLogic, override val
 
     public override fun getInitPosition(arena: Arena): #(Int, Int) =
     if (invertCoordinates)
-        invertCoordinates(arena, logic.getInitPosition(InvertCoordinatesArena(arena)))
+        invertCoordinates(arena, logic.getInitPosition(InvertCoordinatesArena(this, arena)))
     else
         logic.getInitPosition(arena)
 

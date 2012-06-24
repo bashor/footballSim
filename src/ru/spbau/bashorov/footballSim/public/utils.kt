@@ -3,6 +3,7 @@ package ru.spbau.bashorov.footballSim.public.utils
 import ru.spbau.bashorov.footballSim.public.Direction
 import ru.spbau.bashorov.footballSim.public.ReadOnlyArena
 import ru.spbau.bashorov.footballSim.utils.sort
+import ru.spbau.bashorov.footballSim.public.CellStatus
 
 public fun Tuple2<Int, Int>.minus(other: #(Int, Int)): Int =
     Math.max(Math.abs(this._1 - other._1), Math.abs(this._2 - other._2))
@@ -26,11 +27,9 @@ fun stepTo(from: #(Int, Int), to: #(Int, Int), arena: ReadOnlyArena): #(Int, Int
 
     approachable.sort({a, b -> (to - a).compareTo(to - b)});
     for (i in approachable) {
-        try {
-            if (arena.cellIsFree(i)) {
-                return i
-            }
-        } catch(e: Exception) {}
+        if (arena.getCellStatus(i) == CellStatus.FREE) {
+            return i
+        }
     }
     throw Exception()
 }
