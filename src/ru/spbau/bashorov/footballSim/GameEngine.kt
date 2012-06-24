@@ -2,9 +2,11 @@ package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
 import ru.spbau.bashorov.footballSim.public.*
+import ru.spbau.bashorov.footballSim.public.Exceptions.PlayerBehaviorException
+import ru.spbau.bashorov.footballSim.public.Exceptions.UnknownActionException
 import ru.spbau.bashorov.footballSim.utils.shuffle
 
-class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, val matchDuration: Int) {
+class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameArena, val matchDuration: Int) {
     private class object {
         private val FIRST_TEAM_SYMBOLS  = "1234567890#$"
         private val SECOND_TEAM_SYMBOLS = "ABCDEFGHKLMN"
@@ -14,14 +16,14 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
     private val ball = Ball()
     private var firstTeamScore = 0
     private var secondTeamScore = 0
-    private var whoLastKickBall: Player? = null
+    private var whoLastKickBall: GamePlayer? = null
 
     static {
         val firstTeamPlayers = firstTeam.getPlayers().copyOf()
         val secondTeamPlayers = secondTeam.getPlayers().copyOf()
 
         if (firstTeamPlayers.size != secondTeamPlayers.size) {
-            throw Exception("size")
+            throw IllegalArgumentException("Numbers of the Players in both Teams must be equals")
         }
 
         registerPlayers(firstTeam, firstTeamPlayers, FIRST_TEAM_SYMBOLS, false)
@@ -30,8 +32,9 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
         activeObjects.add(ball)
 
         arena.addObjects(activeObjects)
-        arena.resetObjectsPostions()
-        arena.moveBallNearestTo({o -> o is Player && (o as Player).team === firstTeam})
+
+        arena.resetObjectsPositions()
+        arena.moveBallNearestTo({o -> o is GamePlayer && (o as GamePlayer).team === firstTeam})
 
         arena.addGoalListener({
             val y = arena.getBallCoordinates()._2
@@ -44,30 +47,63 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
                 team = secondTeam
             }
 
-            arena.resetObjectsPostions()
-            arena.moveBallNearestTo({o -> o is Player && (o as Player).team === team})
+            arena.resetObjectsPositions()
+            arena.moveBallNearestTo({o -> o is GamePlayer && (o as GamePlayer).team === team})
         })
 
         arena.addOutListener({
             var team = if (whoLastKickBall?.team == secondTeam) firstTeam else secondTeam
-            arena.moveBallNearestTo({o -> o is Player && (o as Player).team === team})
+            arena.moveBallNearestTo({o -> o is GamePlayer && (o as GamePlayer).team === team})
         })
     }
 
     public fun run() {
         arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
         for (time in 0..matchDuration) {
-            runOnce()
+            if (!runOnce())
+                return
+        }
+
+        fun printScore() = println("Score:\n${firstTeam.name}\t$firstTeamScore - $secondTeamScore\t${secondTeam.name}")
+
+        fun printResult(winner: Team) {
+            println("${winner.name} winner!")
+            printScore()
+        }
+        if (firstTeamScore > secondTeamScore) {
+            printResult(firstTeam)
+        } else if (firstTeamScore < secondTeamScore) {
+            printResult(secondTeam)
+        } else {
+            println("Draw!")
+            printScore()
         }
     }
 
-    private fun runOnce() {
+    private fun runOnce(): Boolean {
         activeObjects.shuffle()
         for (activeObject in activeObjects) {
-            runAction(activeObject)
+            try {
+                runAction(activeObject)
+            } catch (e: PlayerBehaviorException) {
+                if (activeObject is GamePlayer) {
+                    fun printResult(winner: Team, loser: Team) {
+                        println("${winner.name} winner! (${loser.name}'s player has performed illegal operation)")
+                    }
+                    if (activeObject.team == firstTeam) {
+                        printResult(secondTeam, firstTeam)
+                        return false
+                    } else if (activeObject.team == secondTeam) {
+                        printResult(firstTeam, secondTeam)
+                        return false
+                    }
+                } else {
+                    throw e
+                }
+            }
             arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
         }
-//        arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
+        return true
     }
 
     fun runAction(activeObject: GameObject) {
@@ -77,19 +113,23 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: Arena, v
                 arena.move(activeObject, action.position)
             }
             is KickBall -> {
-                whoLastKickBall = activeObject as Player
+                whoLastKickBall = activeObject as GamePlayer
                 ball.kick(action)
                 runAction(ball)
             }
             is Nothing -> {/*Do Nothing*/}
-            else -> throw Exception("beda")
+            else -> throw UnknownActionException()
         }
     }
 
-    fun registerPlayers(team: Team, players: Array<PlayerLogic>, teamSymbols: String, invertCoordinates: Boolean) {
+    fun registerPlayers(team: Team, players: Array<Player>, teamSymbols: String, invertCoordinates: Boolean) {
+        if (players.size > teamSymbols.size) {
+            throw IllegalArgumentException("Too many players in the $team(name=${team.name}) team.")
+        }
+
         var i = 0
         players forEach {
-            activeObjects.add(Player(team, it, teamSymbols[i++], invertCoordinates))
+            activeObjects.add(GamePlayer(team, it, teamSymbols[i++], invertCoordinates))
         }
     }
 }

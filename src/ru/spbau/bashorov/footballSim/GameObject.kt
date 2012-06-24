@@ -2,8 +2,8 @@ package ru.spbau.bashorov.footballSim
 
 import ru.spbau.bashorov.footballSim.public.Action
 
-trait GameObject {
-    public fun action(arena: Arena): Action
-    public fun getInitPosition(arena: Arena): #(Int, Int)
+private trait GameObject {
+    public fun action(arena: GameArena): Action
+    public fun getInitPosition(arena: GameArena): #(Int, Int)
     public val sym: Char
 }

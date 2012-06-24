@@ -5,9 +5,9 @@ import java.util.Collection
 import java.util.Collections
 import java.util.Comparator
 import java.util.List
-import ru.spbau.bashorov.footballSim.public.ReadOnlyArena
+import ru.spbau.bashorov.footballSim.public.Arena
 
-fun invertCoordinates(arena: ReadOnlyArena, coordinates: #(Int, Int)) =
+fun invertCoordinates(arena: Arena, coordinates: #(Int, Int)) =
     #(arena.width - 1 - coordinates._1, arena.height - 1 - coordinates._2)
 
 fun <T> ArrayList<T>.sort(comparator: (T, T)->Int): Collection<T> =
@@ -16,6 +16,4 @@ fun <T> ArrayList<T>.sort(comparator: (T, T)->Int): Collection<T> =
         public override fun equals(obj: Any?): Boolean = this === obj
     })
 
-fun <T> List<T>.shuffle() {
-    Collections.shuffle(this)
-}
+fun <T> List<T>.shuffle() = Collections.shuffle(this)

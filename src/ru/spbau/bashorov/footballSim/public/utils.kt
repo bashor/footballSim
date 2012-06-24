@@ -1,9 +1,10 @@
 package ru.spbau.bashorov.footballSim.public.utils
 
-import ru.spbau.bashorov.footballSim.public.Direction
-import ru.spbau.bashorov.footballSim.public.ReadOnlyArena
-import ru.spbau.bashorov.footballSim.utils.sort
+import ru.spbau.bashorov.footballSim.public.Arena
 import ru.spbau.bashorov.footballSim.public.CellStatus
+import ru.spbau.bashorov.footballSim.public.Direction
+import ru.spbau.bashorov.footballSim.public.Exceptions.AchievablePositionNotFoundException
+import ru.spbau.bashorov.footballSim.utils.sort
 
 public fun Tuple2<Int, Int>.minus(other: #(Int, Int)): Int =
     Math.max(Math.abs(this._1 - other._1), Math.abs(this._2 - other._2))
@@ -11,11 +12,11 @@ public fun Tuple2<Int, Int>.minus(other: #(Int, Int)): Int =
 public fun Tuple2<Int, Int>.plus(other: #(Int, Int)): #(Int, Int) =
     #(this._1 + other._1, this._2 + other._2)
 
-public fun Tuple2<Int, Int>.isApproachableFrom(from: #(Int, Int)): Boolean =
+public fun Tuple2<Int, Int>.isAchievableFrom(from: #(Int, Int)): Boolean =
     (from - this) <= 1
 
-fun stepTo(from: #(Int, Int), to: #(Int, Int), arena: ReadOnlyArena): #(Int, Int) {
-    val approachable = arrayList(
+fun stepTo(from: #(Int, Int), to: #(Int, Int), arena: Arena): #(Int, Int) {
+    val achievable = arrayList(
             from + Direction.FORWARD.shift,
             from + Direction.BACKWARD.shift,
             from + Direction.LEFT.shift,
@@ -25,11 +26,12 @@ fun stepTo(from: #(Int, Int), to: #(Int, Int), arena: ReadOnlyArena): #(Int, Int
             from + Direction.BACKWARDLEFT.shift,
             from + Direction.BACKWARDRIGHT.shift)
 
-    approachable.sort({a, b -> (to - a).compareTo(to - b)});
-    for (i in approachable) {
+    achievable.sort({a, b -> (to - a).compareTo(to - b)});
+    for (i in achievable) {
         if (arena.getCellStatus(i) == CellStatus.FREE) {
             return i
         }
     }
-    throw Exception()
+
+    throw AchievablePositionNotFoundException()
 }

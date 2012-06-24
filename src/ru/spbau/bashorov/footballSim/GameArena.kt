@@ -4,26 +4,27 @@ import java.io.PrintStream
 import java.util.ArrayList
 import java.util.List
 import ru.spbau.bashorov.footballSim.public.*
+import ru.spbau.bashorov.footballSim.public.Exceptions.*
 import ru.spbau.bashorov.footballSim.public.utils.*
 import ru.spbau.bashorov.footballSim.utils.*
 
-class Arena (
+class GameArena (
         public override val height: Int,
         public override val width: Int,
-        public override val goalWidth: Int): ReadOnlyArena {
+        public override val goalWidth: Int): Arena {
     {
         if (height % 2 == 0 || height <= 0) {
-            throw IllegalArgumentException("height($height) must be odd and greater than 0")
+            throw IllegalArgumentException("height($height) must be odd and greater than 0.")
         }
         if (width % 2 == 0 || width <= 0) {
-            throw IllegalArgumentException("width($width) must be odd and greater than 0")
+            throw IllegalArgumentException("width($width) must be odd and greater than 0.")
         }
         if (goalWidth % 2 == 0 || goalWidth > width) {
-            throw IllegalArgumentException("goalWidth($goalWidth) must be odd and greater than width")
+            throw IllegalArgumentException("goalWidth($goalWidth) must be odd and greater than width.")
         }
     }
 
-    private val cells = Array<Array<GameObject?>>(height, {arrayOfNulls<GameObject>(width)})
+    private val cells = Array<Array<GameObject?>>(height, { arrayOfNulls<GameObject>(width) })
 
     private val activeObjects = ArrayList<GameObject>()
 
@@ -31,32 +32,22 @@ class Arena (
 
     public fun addObjects(objects: ArrayList<GameObject>) {
         activeObjects.addAll(objects)
-        ball = activeObjects.find({it is Ball}) as Ball
+        ball = activeObjects.find({ it is Ball }) as Ball
     }
 
-    private val goalListeners: List<()->Unit> = ArrayList<()->Unit>()
+    private val goalListeners = ArrayList<()->Unit>()
     public fun addGoalListener(handler: ()->Unit) {
         goalListeners.add(handler)
     }
 
-    fun fireGoal() {
-        for (h in goalListeners) {
-            h()
-        }
-    }
-
-    private val outListeners: List<()->Unit> = ArrayList<()->Unit>()
-    fun addOutListener(handler: ()->Unit) {
+    private val outListeners = ArrayList<()->Unit>()
+    public fun addOutListener(handler: ()->Unit) {
         outListeners.add(handler)
     }
 
-    fun fireOut() {
-        for (h in outListeners) {
-            h()
-        }
-    }
+    private fun notify(liseners: List<()->Unit>) = liseners.forEach({ it() })
 
-    public fun resetObjectsPostions() {
+    public fun resetObjectsPositions() {
         for (i in cells.indices) {
             for (j in cells[i].indices) {
                 cells[i][j] = null
@@ -66,11 +57,9 @@ class Arena (
         for (obj in activeObjects) {
             val position = obj.getInitPosition(this)
             if (getCellStatus(position) != CellStatus.FREE)
-                throw Exception("занято")
+                throw PlayerBehaviorException("Position $position is not free.")
 
             cells[position._2][position._1] = obj
-
-            //TODO: проверять что игрок стоит на совей половине поля
         }
     }
 
@@ -82,31 +71,31 @@ class Arena (
         var out = false
         if (position._1 < 0 || position._1 >= width) {
             if (activeObject !== ball)
-                throw IllegalArgumentException("Can not move to ${position}")
+                throw IllegalArgumentException("Bad position ${position} for moving.")
             out = true
         }
         if ( position._2 < 0 || position._2 >= height)
         {
             if (activeObject !== ball)
-                throw IllegalArgumentException("Can not move to ${position}")
+                throw IllegalArgumentException("Bad position ${position} for moving.")
 
             goal = position._1 >= goalStart && position._1 < goalEnd
             out = !goal
         }
         if (!goal && !out && cells[position._2][position._1] != null) {
-            throw Exception("Can not move to ${position}")
+            throw CanNotMoveToPositionException("Can not move to ${position}, position doesn't free.")
         }
 
         val currentPosition = getCoordinates(activeObject)
 
-        if (!(currentPosition isApproachableFrom position)) {
-            throw Exception("Can not move to ${position}")
+        if (!(currentPosition isAchievableFrom position)) {
+            throw CanNotMoveToPositionException("Can not move to ${position}, position doesn't achievable from current position $currentPosition.")
         }
 
         if (goal)
-            fireGoal()
+            notify(goalListeners)
         else if (out)
-            fireOut()
+            notify(outListeners)
         else
             moveObject(currentPosition, position)
     }
@@ -118,28 +107,22 @@ class Arena (
                     return #(i, j)
             }
         }
-        throw Exception("object not found")
+        throw ObjectNotFoundException()
     }
 
-    override public fun getCoordinates(obj: PlayerLogic): #(Int, Int) {
-        return getCoordinatesHelper(obj)
-    }
-
-    public fun getCoordinates(obj: GameObject): #(Int, Int) {
-        return getCoordinatesHelper(obj)
-    }
+    override public fun getCoordinates(obj: Player): #(Int, Int) = getCoordinatesHelper(obj)
+    public fun getCoordinates(obj: GameObject): #(Int, Int) = getCoordinatesHelper(obj)
 
     public override fun getBallCoordinates(): #(Int, Int) {
         if (ball === null) {
-            throw Exception("Ball not found")
+            throw ObjectNotFoundException("Ball not found.")
         }
         return getCoordinates(ball!!);
     }
 
-    public override fun getCellStatus(position: #(Int, Int)): CellStatus =
-        getCellStatus(position, null)
+    public override fun getCellStatus(position: #(Int, Int)): CellStatus = getCellStatus(position, null)
 
-    public fun getCellStatus(position: #(Int, Int), player: Player?): CellStatus {
+    public fun getCellStatus(position: #(Int, Int), player: GamePlayer?): CellStatus {
         if (position._1 < 0 || position._1 >= width || position._2 < 0 || position._2 >= height) {
             return CellStatus.UNACHIEVABLE
         }
@@ -147,12 +130,12 @@ class Arena (
         return when (cells[position._2][position._1]) {
             null -> CellStatus.FREE
             is Ball -> CellStatus.BALL
-            is Player -> {
+            is GamePlayer -> {
                 if (player == null) {
                     CellStatus.OCCUPIED
                 }
                 else {
-                    val otherPlayer = cells[position._2][position._1] as Player
+                    val otherPlayer = cells[position._2][position._1] as GamePlayer
                     if (player.team === otherPlayer.team) CellStatus.PARTNER else CellStatus.OPPONENT
                 }
             }
@@ -174,9 +157,9 @@ class Arena (
                 val to = stepTo(position, #(position._1, height / 2), this)
                 moveObject(ballPosition, to)
                 return true
-            } catch (e: Exception){}
-
-            return false
+            } catch (e: AchievablePositionNotFoundException){
+                return false
+            }
         }
 
         getObjectNearestTo(ball!!, {o -> checker(o) && tryMoveBallNear(o) })
@@ -190,25 +173,24 @@ class Arena (
                 return ao
             }
         }
-        throw Exception()
+        throw AchievablePositionNotFoundException()
     }
 
     public fun print(team1Name: String, team1Score: Int, team2Name: String, team2Score: Int, out: PrintStream = System.out) {
 
-        private val BORDER_HORIZONTAL   = '\u2501'
-        private val BORDER_VERTICAL     = '\u2503'
+        private val BORDER_HORIZONTAL   = '\u2501' // ━
+        private val BORDER_VERTICAL     = '\u2503' // ┃
 
-        private val CORNER_TOP_LEFT     = '\u250F'
-        private val CORNER_TOP_RIGHT    = '\u2513'
-        private val CORNER_BOTTOM_LEFT  = '\u2517'
-        private val CORNER_BOTTOM_RIGHT = '\u251B'
+        private val CORNER_TOP_LEFT     = '\u250F' // ┏
+        private val CORNER_TOP_RIGHT    = '\u2513' // ┓
+        private val CORNER_BOTTOM_LEFT  = '\u2517' // ┗
+        private val CORNER_BOTTOM_RIGHT = '\u251B' // ┛
 
-        private val PLACEHOLDER         = '\uE146'
+        private val PLACEHOLDER         = '\uE146' // 
         private val GOAL                = '-'
 
         fun line (cornerLeft: Char, cornerRight: Char) {
             out.print(cornerLeft)
-
             for (j in 0..goalStart - 1) {
                 out.print(BORDER_HORIZONTAL)
             }
@@ -229,10 +211,7 @@ class Arena (
         for (line in cells) {
             out.print(BORDER_VERTICAL)
             for (cell in line) {
-                if (cell == null)
-                    out.print(PLACEHOLDER)
-                else
-                    out.print(cell.sym)
+                out.print(if (cell == null) PLACEHOLDER else  cell.sym)
             }
             out.println(BORDER_VERTICAL)
         }
