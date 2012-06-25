@@ -3,34 +3,27 @@ package ru.spbau.bashorov.footballSim
 import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.utils.*
 
-private class GamePlayer(public val team: Team,
-                     private val logic: PlayerBehavior,
-                     public override val sym: Char,
-                     private val invertCoordinates: Boolean): ActiveObject {
+private abstract class GamePlayer(public val team: Team,
+                         protected val playerBehavior: PlayerBehavior,
+                         public override val sym: Char): ActiveObject {
 
-    public override fun action(arena: GameArena): Action {
-        var position = arena.getCoordinates(this)
-        var readOnlyArena: Arena?
-        if (invertCoordinates) {
-            position = invertCoordinates(arena, position)
-            readOnlyArena = ArenaInvertCoordinatesWrapper(this, arena)
-        }
-        else {
-            readOnlyArena = ArenaWrapper(this, arena)
-        }
+    public fun equals(obj: Any?): Boolean = this === obj || playerBehavior === obj
+}
 
-        val action = logic.action(position, readOnlyArena!!)
-
-        return if (invertCoordinates) action.invert(readOnlyArena!!) else action
-    }
+private class GamePlayerNormal(team: Team, playerBehavior: PlayerBehavior, sym: Char): GamePlayer(team, playerBehavior, sym) {
+    public override fun action(arena: GameArena): Action =
+        playerBehavior.action(arena.getCoordinates(this), ArenaWrapper(this, arena))
 
     public override fun getInitPosition(arena: GameArena): #(Int, Int) =
-        if (invertCoordinates)
-            invertCoordinates(arena, logic.getInitPosition(ArenaInvertCoordinatesWrapper(this, arena)))
-        else
-            logic.getInitPosition(ArenaWrapper(this, arena))
+        playerBehavior.getInitPosition(ArenaWrapper(this, arena))
+}
 
-    public fun equals(obj: Any?): Boolean = this === obj || logic === obj
+private class GamePlayerInvertCoordinates(team: Team, playerBehavior: PlayerBehavior, sym: Char): GamePlayer(team, playerBehavior, sym) {
+    public override fun action(arena: GameArena): Action =
+        playerBehavior.action(invertCoordinates(arena, arena.getCoordinates(this)), ArenaInvertCoordinatesWrapper(this, arena))
+
+    public override fun getInitPosition(arena: GameArena): #(Int, Int) =
+        invertCoordinates(arena, playerBehavior.getInitPosition(ArenaInvertCoordinatesWrapper(this, arena)))
 }
 
 private abstract class ArenaWrapperAbstract(protected final val player: GamePlayer, protected final val arena: GameArena): Arena {

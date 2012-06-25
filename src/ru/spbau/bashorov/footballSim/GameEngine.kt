@@ -5,6 +5,7 @@ import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
 import ru.spbau.bashorov.footballSim.public.exceptions.UnknownActionException
 import ru.spbau.bashorov.footballSim.utils.shuffle
+import java.util.List
 
 class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameArena, val matchDuration: Int, private val sleep: Long = 0) {
     private class object {
@@ -19,8 +20,8 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
     private var whoLastKickBall: GamePlayer? = null
 
     static {
-        val firstTeamPlayers = firstTeam.getPlayers().copyOf()
-        val secondTeamPlayers = secondTeam.getPlayers().copyOf()
+        val firstTeamPlayers = firstTeam.getPlayers().toList()
+        val secondTeamPlayers = secondTeam.getPlayers().toList()
 
         if (firstTeamPlayers.size != secondTeamPlayers.size) {
             throw IllegalArgumentException("Numbers of the Players in both Teams must be equals")
@@ -124,14 +125,17 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
         }
     }
 
-    fun registerPlayers(team: Team, players: Array<PlayerBehavior>, teamSymbols: String, invertCoordinates: Boolean) {
+    fun registerPlayers(team: Team, players: List<PlayerBehavior>, teamSymbols: String, invertCoordinates: Boolean) {
         if (players.size > teamSymbols.size) {
             throw IllegalArgumentException("Too many players in the $team(name=${team.name}) team.")
         }
 
         var i = 0
-        players forEach {
-            activeObjects.add(GamePlayer(team, it, teamSymbols[i++], invertCoordinates))
-        }
+        val converter = if (invertCoordinates)
+                {(p: PlayerBehavior) -> GamePlayerInvertCoordinates(team, p, teamSymbols[i++])}
+            else
+                {(p: PlayerBehavior) -> GamePlayerNormal(team, p, teamSymbols[i++])}
+
+        activeObjects.addAll(players.map(converter))
     }
 }
