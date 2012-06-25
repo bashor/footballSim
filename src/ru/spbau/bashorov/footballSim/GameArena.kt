@@ -203,8 +203,7 @@ class GameArena (
             out.println(cornerRight)
         }
 
-        out.println(team1Score.toString() + "\t" + team1Name)
-        out.println(team2Score.toString() + "\t" + team2Name)
+        out.println("$team1Name $team1Score - $team2Score $team2Name")
 
         line(CORNER_TOP_LEFT, CORNER_TOP_RIGHT)
 
@@ -217,5 +216,5 @@ class GameArena (
         }
 
         line(CORNER_BOTTOM_LEFT, CORNER_BOTTOM_RIGHT)
-    }
+   }
 }

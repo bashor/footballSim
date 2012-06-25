@@ -3,18 +3,30 @@ import ru.spbau.bashorov.footballSim.public.Exceptions.AchievablePositionNotFoun
 import ru.spbau.bashorov.footballSim.public.utils.*
 
 public class SimpleTeam(public override val name: String): Team {
-    class Logic(): Player {
+    class SimplePlayer(): Player {
         override fun action(position: #(Int, Int), arena: Arena): Action {
             val ballPosition = arena.getBallCoordinates()
-            if (ballPosition.isAchievableFrom(position)){
-                try {
-                    val ballNewPosition = stepTo(ballPosition, #(arena.width / 2, arena.height - 1), arena)
-                    val diff = #(ballNewPosition._1 - ballPosition._1, ballNewPosition._2 - ballPosition._2)
+            if (ballPosition.isAchievableFrom(position)) {
+                val goalStart = (arena.width - arena.goalWidth) / 2
+                val goalEnd = goalStart + arena.goalWidth
+
+                var ballNewPosition: #(Int, Int)? = null
+                if (ballPosition._2 == arena.height - 1 && ballPosition._1 >= goalStart && ballPosition._1 < goalEnd) {
+                    ballNewPosition = ballPosition + #(0,1)
+                } else {
+                    try {
+                        ballNewPosition = stepTo(ballPosition, #(arena.width / 2, arena.height), arena)
+                    } catch (e: AchievablePositionNotFoundException) {
+                        // loging
+                    }
+                }
+                if (ballNewPosition != null) {
+                    val diff = ballNewPosition!! - ballPosition
                     val direction = SHIFT_TO_DIRECTION[diff]
                     if (direction != null) {
                         return KickBall(direction)
                     }
-                } catch (e: AchievablePositionNotFoundException) {}
+                }
             }
 
             try {
@@ -38,7 +50,8 @@ public class SimpleTeam(public override val name: String): Team {
         }
     }
 
-    val team = array<Player>(Logic(), Logic(), Logic(), Logic())
+    val team = Array<Player>(6, { SimplePlayer() })
+//            array<Player>(Logic(), Logic(), Logic(), Logic())
 
     override fun getPlayers(): Array<Player> = team
 }

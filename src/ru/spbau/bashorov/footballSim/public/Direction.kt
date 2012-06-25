@@ -17,8 +17,8 @@ public enum class Direction(public val shift: #(Int, Int)) {
     public fun invert(): Direction {
         public val INVERT_DIRECTION: Map<Direction, Direction> = hashMap(
                 Direction.NOWHERE       to Direction.NOWHERE,
-                Direction.LEFT          to Direction.LEFT,
-                Direction.RIGHT         to Direction.RIGHT,
+                Direction.LEFT          to Direction.RIGHT,
+                Direction.RIGHT         to Direction.LEFT,
                 Direction.FORWARD       to Direction.BACKWARD,
                 Direction.BACKWARD      to Direction.FORWARD,
                 Direction.FORWARD_LEFT   to Direction.BACKWARD_RIGHT,

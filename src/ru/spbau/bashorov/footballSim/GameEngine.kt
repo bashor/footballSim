@@ -6,7 +6,7 @@ import ru.spbau.bashorov.footballSim.public.Exceptions.PlayerBehaviorException
 import ru.spbau.bashorov.footballSim.public.Exceptions.UnknownActionException
 import ru.spbau.bashorov.footballSim.utils.shuffle
 
-class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameArena, val matchDuration: Int) {
+class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameArena, val matchDuration: Int, private val sleep: Long = 0) {
     private class object {
         private val FIRST_TEAM_SYMBOLS  = "1234567890#$"
         private val SECOND_TEAM_SYMBOLS = "ABCDEFGHKLMN"
@@ -62,12 +62,14 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
         for (time in 0..matchDuration) {
             if (!runOnce())
                 return
+            if (sleep > 0)
+                Thread.sleep(sleep)
         }
 
-        fun printScore() = println("Score:\n${firstTeam.name}\t$firstTeamScore - $secondTeamScore\t${secondTeam.name}")
+        fun printScore() = println("Score:\n${firstTeam.name} $firstTeamScore - $secondTeamScore ${secondTeam.name}")
 
         fun printResult(winner: Team) {
-            println("${winner.name} winner!")
+            println("${winner.name} team won!")
             printScore()
         }
         if (firstTeamScore > secondTeamScore) {
@@ -88,7 +90,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
             } catch (e: PlayerBehaviorException) {
                 if (activeObject is GamePlayer) {
                     fun printResult(winner: Team, loser: Team) {
-                        println("${winner.name} winner! (${loser.name}'s player has performed illegal operation)")
+                        println("${winner.name} team won! (${loser.name}'s player has performed illegal operation)")
                     }
                     if (activeObject.team == firstTeam) {
                         printResult(secondTeam, firstTeam)
