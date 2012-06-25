@@ -19,8 +19,11 @@ private class GamePlayerNormal(team: Team, playerBehavior: PlayerBehavior, sym: 
 }
 
 private class GamePlayerInvertCoordinates(team: Team, playerBehavior: PlayerBehavior, sym: Char): GamePlayer(team, playerBehavior, sym) {
-    public override fun action(arena: GameArena): Action =
-        playerBehavior.action(invertCoordinates(arena, arena.getCoordinates(this)), ArenaInvertCoordinatesWrapper(this, arena))
+    public override fun action(arena: GameArena): Action {
+        val readOnlyArena = ArenaInvertCoordinatesWrapper(this, arena)
+        val position = invertCoordinates(readOnlyArena, arena.getCoordinates(this))
+        return playerBehavior.action(position, readOnlyArena).invert(readOnlyArena)
+    }
 
     public override fun getInitPosition(arena: GameArena): #(Int, Int) =
         invertCoordinates(arena, playerBehavior.getInitPosition(ArenaInvertCoordinatesWrapper(this, arena)))
