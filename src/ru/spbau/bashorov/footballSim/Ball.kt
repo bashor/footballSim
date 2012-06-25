@@ -14,8 +14,7 @@ private class Ball: ActiveObject {
         var newPosition = arena.getCoordinates(this) + direction.shift
 
         direction = Direction.NOWHERE
-        val st = arena.getCellStatus(newPosition)
-        if (st != CellStatus.UNACHIEVABLE && st == CellStatus.OCCUPIED) {
+        if (newPosition isValidCellOn arena && arena[newPosition] !is Free) {
             return Nothing()
         }
 

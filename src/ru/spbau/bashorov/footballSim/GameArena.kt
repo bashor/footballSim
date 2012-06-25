@@ -30,9 +30,9 @@ class GameArena (
 
     private var ball: Ball? = null
 
-    public override fun get(x: Int, y: Int): GameObject {
-        return cells[y][x]
-    }
+    public override fun get(x: Int, y: Int): GameObject = cells[y][x]
+    private fun set(p: #(Int, Int), v: GameObject) = set(p._1, p._2, v)
+    private fun set(x: Int, y: Int, v: GameObject) = cells[y][x] = v
 
     public fun addActiveObjects(objects: ArrayList<ActiveObject>) {
         activeObjects.addAll(objects)
@@ -63,7 +63,7 @@ class GameArena (
             if (this[position] !is Free)
                 throw PlayerBehaviorException("Position $position is not free.")
 
-            cells[position._2][position._1] = obj
+            this[position] = obj
         }
     }
 
@@ -107,7 +107,7 @@ class GameArena (
     private fun <T>getCoordinatesHelper(obj: T): #(Int, Int) {
         for (j in cells.indices) {
             for (i in cells[j].indices) {
-                if (cells[j][i] == obj)
+                if (this[i,j] == obj)
                     return #(i, j)
             }
         }
@@ -130,34 +130,34 @@ class GameArena (
         }
     }
 
-    public override fun getCellStatus(position: #(Int, Int)): CellStatus = getCellStatus(position, null)
-
-    public fun getCellStatus(position: #(Int, Int), player: GamePlayer?): CellStatus {
-        if (position._1 < 0 || position._1 >= width || position._2 < 0 || position._2 >= height) {
-            return CellStatus.UNACHIEVABLE
-        }
-
-        return when (cells[position._2][position._1]) {
-            is Free -> CellStatus.FREE
-            is Ball -> CellStatus.BALL
-            is GamePlayer -> {
-                if (player == null) {
-                    CellStatus.OCCUPIED
-                }
-                else {
-                    val otherPlayer = cells[position._2][position._1] as GamePlayer
-                    if (player.team === otherPlayer.team) CellStatus.PARTNER else CellStatus.OPPONENT
-                }
-            }
-            else -> CellStatus.UNACHIEVABLE
-        }
-    }
+//    public override fun getCellStatus(position: #(Int, Int)): CellStatus = getCellStatus(position, null)
+//
+//    public fun getCellStatus(position: #(Int, Int), player: GamePlayer?): CellStatus {
+//        if (position._1 < 0 || position._1 >= width || position._2 < 0 || position._2 >= height) {
+//            return CellStatus.UNACHIEVABLE
+//        }
+//
+//        return when (cells[position._2][position._1]) {
+//            is Free -> CellStatus.FREE
+//            is Ball -> CellStatus.BALL
+//            is GamePlayer -> {
+//                if (player == null) {
+//                    CellStatus.OCCUPIED
+//                }
+//                else {
+//                    val otherPlayer = cells[position._2][position._1] as GamePlayer
+//                    if (player.team === otherPlayer.team) CellStatus.PARTNER else CellStatus.OPPONENT
+//                }
+//            }
+//            else -> CellStatus.UNACHIEVABLE
+//        }
+//    }
 
     private fun moveObject(currentPosition: #(Int, Int), newPosition: #(Int, Int)) {
         if (currentPosition == newPosition)
             return
-        cells[newPosition._2][newPosition._1] = cells[currentPosition._2][currentPosition._1]
-        cells[currentPosition._2][currentPosition._1] = Free()
+        this[newPosition] = this[currentPosition]
+        this[currentPosition] = Free()
     }
 
     public fun moveBallNearestTo(checker: (GameObject)->Boolean) {

@@ -56,7 +56,6 @@ private class ArenaWrapper(player: GamePlayer, arena: GameArena): ArenaWrapperAb
         }
 
     }
-    public override fun getCellStatus(position: #(Int, Int)): CellStatus = arena.getCellStatus(position, player)
     public override fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = arena.getCoordinates(obj)
     public override fun getBallCoordinates(): #(Int, Int) = arena.getBallCoordinates()
 }
@@ -67,6 +66,5 @@ private class ArenaInvertCoordinatesWrapper(player: GamePlayer, arena: GameArena
         return arena[c._1, c._2]
     }
     public override fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = invertCoordinates(arena, arena.getCoordinates(obj))
-    public override fun getCellStatus(position: #(Int, Int)): CellStatus = arena.getCellStatus(invertCoordinates(arena, position), player)
     public override fun getBallCoordinates(): #(Int, Int) = invertCoordinates(arena, arena.getBallCoordinates())
 }
