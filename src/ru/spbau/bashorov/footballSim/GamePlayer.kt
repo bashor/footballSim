@@ -4,9 +4,9 @@ import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.utils.*
 
 private class GamePlayer(public val team: Team,
-                     private val logic: Player,
+                     private val logic: PlayerBehavior,
                      public override val sym: Char,
-                     private val invertCoordinates: Boolean): GameObject {
+                     private val invertCoordinates: Boolean): ActiveObject {
 
     public override fun action(arena: GameArena): Action {
         var position = arena.getCoordinates(this)
@@ -40,13 +40,33 @@ private abstract class ArenaWrapperAbstract(protected final val player: GamePlay
 }
 
 private class ArenaWrapper(player: GamePlayer, arena: GameArena): ArenaWrapperAbstract(player, arena) {
+    public override fun get(x: Int, y: Int): GameObject {
+        val obj = arena[x, y]
+        return when (obj) {
+            is GamePlayer-> {
+                if (obj.team == player.team) {
+                    PartnerPlayer(obj)
+                } else {
+                    OpponentPlayer(obj)
+                }
+            }
+            is Ball -> ReadOnlyBall(obj)
+            is Free -> obj
+            else -> throw Exception()
+        }
+
+    }
     public override fun getCellStatus(position: #(Int, Int)): CellStatus = arena.getCellStatus(position, player)
-    public override fun getCoordinates(obj: Player): #(Int, Int) = arena.getCoordinates(obj)
+    public override fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = arena.getCoordinates(obj)
     public override fun getBallCoordinates(): #(Int, Int) = arena.getBallCoordinates()
 }
 
 private class ArenaInvertCoordinatesWrapper(player: GamePlayer, arena: GameArena): ArenaWrapperAbstract(player, arena) {
-    public override fun getCoordinates(obj: Player): #(Int, Int) = invertCoordinates(arena, arena.getCoordinates(obj))
+    public override fun get(x: Int, y: Int): GameObject {
+        val c = invertCoordinates(arena, #(x, y))
+        return arena[c._1, c._2]
+    }
+    public override fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = invertCoordinates(arena, arena.getCoordinates(obj))
     public override fun getCellStatus(position: #(Int, Int)): CellStatus = arena.getCellStatus(invertCoordinates(arena, position), player)
     public override fun getBallCoordinates(): #(Int, Int) = invertCoordinates(arena, arena.getBallCoordinates())
 }

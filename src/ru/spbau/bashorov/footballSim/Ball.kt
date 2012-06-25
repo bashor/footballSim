@@ -3,7 +3,7 @@ package ru.spbau.bashorov.footballSim
 import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.utils.*
 
-private class Ball: GameObject {
+private class Ball: ActiveObject {
     public override val sym: Char = '\u25CF' // ●
     private var direction: Direction = Direction.NOWHERE
 

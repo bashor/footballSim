@@ -2,9 +2,10 @@ import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.exceptions.AchievablePositionNotFoundException
 import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
 import ru.spbau.bashorov.footballSim.public.utils.*
+import ru.spbau.bashorov.footballSim.Free
 
 public class SimpleTeam(public override val name: String): Team {
-    class SimplePlayer(): Player {
+    class SimplePlayer(): PlayerBehavior {
         override fun action(position: #(Int, Int), arena: Arena): Action {
             val ballPosition = arena.getBallCoordinates()
             if (ballPosition.isAchievableFrom(position)) {
@@ -42,7 +43,7 @@ public class SimpleTeam(public override val name: String): Team {
             for (i in 0..arena.height) {
                 for (j in -i..i) {
                     val pos = #(center + j, i)
-                    if (arena.getCellStatus(pos) == CellStatus.FREE) {
+                    if (arena[pos] is Free) {
                         return pos
                     }
                 }
@@ -51,8 +52,8 @@ public class SimpleTeam(public override val name: String): Team {
         }
     }
 
-    val team = Array<Player>(6, { SimplePlayer() })
-//            array<Player>(Logic(), Logic(), Logic(), Logic())
+    val team = Array<PlayerBehavior>(6, { SimplePlayer() })
+//             array<PlayerBehavior>(Logic(), Logic(), Logic(), Logic())
 
-    override fun getPlayers(): Array<Player> = team
+    override fun getPlayers(): Array<PlayerBehavior> = team
 }

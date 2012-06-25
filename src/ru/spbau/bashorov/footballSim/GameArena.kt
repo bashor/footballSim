@@ -24,13 +24,17 @@ class GameArena (
         }
     }
 
-    private val cells = Array<Array<GameObject?>>(height, { arrayOfNulls<GameObject>(width) })
+    private val cells = Array<Array<GameObject>>(height, {Array<GameObject>(width, { Free() }) })
 
-    private val activeObjects = ArrayList<GameObject>()
+    private val activeObjects = ArrayList<ActiveObject>()
 
     private var ball: Ball? = null
 
-    public fun addObjects(objects: ArrayList<GameObject>) {
+    public override fun get(x: Int, y: Int): GameObject {
+        return cells[y][x]
+    }
+
+    public fun addActiveObjects(objects: ArrayList<ActiveObject>) {
         activeObjects.addAll(objects)
         ball = activeObjects.find({ it is Ball }) as Ball
     }
@@ -50,13 +54,13 @@ class GameArena (
     public fun resetObjectsPositions() {
         for (i in cells.indices) {
             for (j in cells[i].indices) {
-                cells[i][j] = null
+                cells[i][j] = Free()
             }
         }
 
         for (obj in activeObjects) {
             val position = obj.getInitPosition(this)
-            if (getCellStatus(position) != CellStatus.FREE)
+            if (this[position] !is Free)
                 throw PlayerBehaviorException("Position $position is not free.")
 
             cells[position._2][position._1] = obj
@@ -82,7 +86,7 @@ class GameArena (
             goal = position._1 >= goalStart && position._1 < goalEnd
             out = !goal
         }
-        if (!goal && !out && cells[position._2][position._1] != null) {
+        if (!goal && !out && this[position] !is Free) {
             throw CanNotMoveToPositionException("Can not move to ${position}, position doesn't free.")
         }
 
@@ -110,7 +114,7 @@ class GameArena (
         throw ObjectNotFoundException()
     }
 
-    override public fun getCoordinates(obj: Player): #(Int, Int) = getCoordinatesHelper(obj)
+    override public fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = getCoordinatesHelper(obj)
     public fun getCoordinates(obj: GameObject): #(Int, Int) = getCoordinatesHelper(obj)
 
     public override fun getBallCoordinates(): #(Int, Int) {
@@ -134,7 +138,7 @@ class GameArena (
         }
 
         return when (cells[position._2][position._1]) {
-            null -> CellStatus.FREE
+            is Free -> CellStatus.FREE
             is Ball -> CellStatus.BALL
             is GamePlayer -> {
                 if (player == null) {
@@ -150,8 +154,10 @@ class GameArena (
     }
 
     private fun moveObject(currentPosition: #(Int, Int), newPosition: #(Int, Int)) {
+        if (currentPosition == newPosition)
+            return
         cells[newPosition._2][newPosition._1] = cells[currentPosition._2][currentPosition._1]
-        cells[currentPosition._2][currentPosition._1] = null
+        cells[currentPosition._2][currentPosition._1] = Free()
     }
 
     public fun moveBallNearestTo(checker: (GameObject)->Boolean) {
@@ -192,7 +198,6 @@ class GameArena (
         private val CORNER_BOTTOM_LEFT  = '\u2517' // ┗
         private val CORNER_BOTTOM_RIGHT = '\u251B' // ┛
 
-        private val PLACEHOLDER         = '\uE146' // 
         private val GOAL                = '-'
 
         fun line (cornerLeft: Char, cornerRight: Char) {
@@ -216,7 +221,7 @@ class GameArena (
         for (line in cells) {
             out.print(BORDER_VERTICAL)
             for (cell in line) {
-                out.print(if (cell == null) PLACEHOLDER else  cell.sym)
+                out.print(cell.sym)
             }
             out.println(BORDER_VERTICAL)
         }

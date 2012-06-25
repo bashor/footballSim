@@ -12,7 +12,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
         private val SECOND_TEAM_SYMBOLS = "ABCDEFGHKLMN"
     }
 
-    private val activeObjects = ArrayList<GameObject>()
+    private val activeObjects = ArrayList<ActiveObject>()
     private val ball = Ball()
     private var firstTeamScore = 0
     private var secondTeamScore = 0
@@ -31,7 +31,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
 
         activeObjects.add(ball)
 
-        arena.addObjects(activeObjects)
+        arena.addActiveObjects(activeObjects)
 
         arena.resetObjectsPositions()
         arena.moveBallNearestTo({o -> o is GamePlayer && (o as GamePlayer).team === firstTeam})
@@ -85,30 +85,30 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
     private fun runOnce(): Boolean {
         activeObjects.shuffle()
         for (activeObject in activeObjects) {
-            try {
+//            try {
                 runAction(activeObject)
-            } catch (e: PlayerBehaviorException) {
-                if (activeObject is GamePlayer) {
-                    fun printResult(winner: Team, loser: Team) {
-                        println("${winner.name} team won! (${loser.name}'s player has performed illegal operation)")
-                    }
-                    if (activeObject.team == firstTeam) {
-                        printResult(secondTeam, firstTeam)
-                        return false
-                    } else if (activeObject.team == secondTeam) {
-                        printResult(firstTeam, secondTeam)
-                        return false
-                    }
-                } else {
-                    throw e
-                }
-            }
+//            } catch (e: PlayerBehaviorException) {
+//                if (activeObject is GamePlayer) {
+//                    fun printResult(winner: Team, loser: Team) {
+//                        println("${winner.name} team won! (${loser.name}'s player has performed illegal operation)")
+//                    }
+//                    if (activeObject.team == firstTeam) {
+//                        printResult(secondTeam, firstTeam)
+//                        return false
+//                    } else if (activeObject.team == secondTeam) {
+//                        printResult(firstTeam, secondTeam)
+//                        return false
+//                    }
+//                } else {
+//                    throw e
+//                }
+//            }
             arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
         }
         return true
     }
 
-    fun runAction(activeObject: GameObject) {
+    fun runAction(activeObject: ActiveObject) {
         val action = activeObject.action(arena)
         when (action) {
             is Move -> {
@@ -124,7 +124,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
         }
     }
 
-    fun registerPlayers(team: Team, players: Array<Player>, teamSymbols: String, invertCoordinates: Boolean) {
+    fun registerPlayers(team: Team, players: Array<PlayerBehavior>, teamSymbols: String, invertCoordinates: Boolean) {
         if (players.size > teamSymbols.size) {
             throw IllegalArgumentException("Too many players in the $team(name=${team.name}) team.")
         }

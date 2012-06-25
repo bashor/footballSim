@@ -15,6 +15,9 @@ public fun Tuple2<Int, Int>.plus(other: #(Int, Int)): #(Int, Int) =
 public fun Tuple2<Int, Int>.minus(other: #(Int, Int)): #(Int, Int) =
     #(this._1 - other._1, this._2 - other._2)
 
+public fun Tuple2<Int, Int>.equals(other: #(Int, Int)): Boolean =
+    this._1 == other._1 && this._2 == other._2
+
 public fun Tuple2<Int, Int>.isAchievableFrom(from: #(Int, Int)): Boolean =
     (from.calcDistanceTo(this)) <= 1
 
