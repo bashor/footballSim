@@ -2,8 +2,8 @@ package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
 import ru.spbau.bashorov.footballSim.public.*
-import ru.spbau.bashorov.footballSim.public.Exceptions.PlayerBehaviorException
-import ru.spbau.bashorov.footballSim.public.Exceptions.UnknownActionException
+import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
+import ru.spbau.bashorov.footballSim.public.exceptions.UnknownActionException
 import ru.spbau.bashorov.footballSim.utils.shuffle
 
 class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameArena, val matchDuration: Int, private val sleep: Long = 0) {

@@ -4,7 +4,7 @@ import java.io.PrintStream
 import java.util.ArrayList
 import java.util.List
 import ru.spbau.bashorov.footballSim.public.*
-import ru.spbau.bashorov.footballSim.public.Exceptions.*
+import ru.spbau.bashorov.footballSim.public.exceptions.*
 import ru.spbau.bashorov.footballSim.public.utils.*
 import ru.spbau.bashorov.footballSim.utils.*
 
@@ -115,9 +115,15 @@ class GameArena (
 
     public override fun getBallCoordinates(): #(Int, Int) {
         if (ball === null) {
-            throw ObjectNotFoundException("Ball not found.")
+            throw BallNotFoundException()
         }
-        return getCoordinates(ball!!);
+
+        try
+        {
+            return getCoordinates(ball!!);
+        } catch (e: ObjectNotFoundException) {
+            throw BallNotFoundException()
+        }
     }
 
     public override fun getCellStatus(position: #(Int, Int)): CellStatus = getCellStatus(position, null)

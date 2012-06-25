@@ -1,5 +1,6 @@
 import ru.spbau.bashorov.footballSim.public.*
-import ru.spbau.bashorov.footballSim.public.Exceptions.AchievablePositionNotFoundException
+import ru.spbau.bashorov.footballSim.public.exceptions.AchievablePositionNotFoundException
+import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
 import ru.spbau.bashorov.footballSim.public.utils.*
 
 public class SimpleTeam(public override val name: String): Team {
@@ -46,7 +47,7 @@ public class SimpleTeam(public override val name: String): Team {
                     }
                 }
             }
-            throw Exception("ну не шмогла я...")
+            throw PlayerBehaviorException("ну не шмогла я...")
         }
     }
 

@@ -3,7 +3,7 @@ package ru.spbau.bashorov.footballSim.public.utils
 import ru.spbau.bashorov.footballSim.public.Arena
 import ru.spbau.bashorov.footballSim.public.CellStatus
 import ru.spbau.bashorov.footballSim.public.Direction
-import ru.spbau.bashorov.footballSim.public.Exceptions.AchievablePositionNotFoundException
+import ru.spbau.bashorov.footballSim.public.exceptions.AchievablePositionNotFoundException
 import ru.spbau.bashorov.footballSim.utils.sort
 
 public fun Tuple2<Int, Int>.calcDistanceTo(other: #(Int, Int)): Int =

@@ -1,4 +1,4 @@
-package ru.spbau.bashorov.footballSim.public.Exceptions
+package ru.spbau.bashorov.footballSim.public.exceptions
 
 public open class PlayerBehaviorException(message: String = "") : RuntimeException(message)
 
