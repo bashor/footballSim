@@ -38,7 +38,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
         arena.moveBallNearestTo({o -> o is GamePlayer && (o as GamePlayer).team === firstTeam})
 
         arena.addGoalListener({
-            val y = arena.getBallCoordinates()._2
+            val y = arena.getCoordinates(ball)._2
             var team = firstTeam
             if (y <= 0) {
                 secondTeamScore++

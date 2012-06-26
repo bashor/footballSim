@@ -104,55 +104,6 @@ class GameArena (
             moveObject(currentPosition, position)
     }
 
-    private fun <T>getCoordinatesHelper(obj: T): #(Int, Int) {
-        for (j in cells.indices) {
-            for (i in cells[j].indices) {
-                if (this[i,j] == obj)
-                    return #(i, j)
-            }
-        }
-        throw ObjectNotFoundException()
-    }
-
-    override public fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = getCoordinatesHelper(obj)
-    public fun getCoordinates(obj: GameObject): #(Int, Int) = getCoordinatesHelper(obj)
-
-    public override fun getBallCoordinates(): #(Int, Int) {
-        if (ball === null) {
-            throw BallNotFoundException()
-        }
-
-        try
-        {
-            return getCoordinates(ball!!);
-        } catch (e: ObjectNotFoundException) {
-            throw BallNotFoundException()
-        }
-    }
-
-//    public override fun getCellStatus(position: #(Int, Int)): CellStatus = getCellStatus(position, null)
-//
-//    public fun getCellStatus(position: #(Int, Int), player: GamePlayer?): CellStatus {
-//        if (position._1 < 0 || position._1 >= width || position._2 < 0 || position._2 >= height) {
-//            return CellStatus.UNACHIEVABLE
-//        }
-//
-//        return when (cells[position._2][position._1]) {
-//            is Free -> CellStatus.FREE
-//            is Ball -> CellStatus.BALL
-//            is GamePlayer -> {
-//                if (player == null) {
-//                    CellStatus.OCCUPIED
-//                }
-//                else {
-//                    val otherPlayer = cells[position._2][position._1] as GamePlayer
-//                    if (player.team === otherPlayer.team) CellStatus.PARTNER else CellStatus.OPPONENT
-//                }
-//            }
-//            else -> CellStatus.UNACHIEVABLE
-//        }
-//    }
-
     private fun moveObject(currentPosition: #(Int, Int), newPosition: #(Int, Int)) {
         if (currentPosition == newPosition)
             return
@@ -162,7 +113,7 @@ class GameArena (
 
     public fun moveBallNearestTo(checker: (GameObject)->Boolean) {
         fun tryMoveBallNear(o: GameObject): Boolean {
-            val ballPosition = getBallCoordinates()
+            val ballPosition = getCoordinates(ball!!)
             val position = getCoordinates(o)
 
             try {
