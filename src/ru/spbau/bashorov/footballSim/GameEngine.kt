@@ -8,8 +8,15 @@ import ru.spbau.bashorov.footballSim.public.actions.KickBall
 import ru.spbau.bashorov.footballSim.public.actions.Move
 import ru.spbau.bashorov.footballSim.public.exceptions.UnknownActionException
 import ru.spbau.bashorov.footballSim.utils.shuffle
+import ru.spbau.bashorov.footballSim.gameStatePrinter.DoNotPrint
+import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
 
-class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameArena, val matchDuration: Int, private val sleep: Long = 0) {
+private class GameEngine (private val firstTeam: Team,
+                  private val secondTeam: Team,
+                  private val arena: GameArena,
+                  private val matchDuration: Int,
+                  private val printer: GameStatePrinter = DoNotPrint(),
+                  private val sleep: Long = 0) {
     private class object {
         private val FIRST_TEAM_SYMBOLS  = "1234567890#$"
         private val SECOND_TEAM_SYMBOLS = "ABCDEFGHKLMN"
@@ -61,7 +68,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
     }
 
     public fun run() {
-        arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
+        printer.print(arena, firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
         for (time in 0..matchDuration) {
             if (!runOnce())
                 return
@@ -88,25 +95,25 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
     private fun runOnce(): Boolean {
         activeObjects.shuffle()
         for (activeObject in activeObjects) {
-//            try {
+            try {
                 runAction(activeObject)
-//            } catch (e: PlayerBehaviorException) {
-//                if (activeObject is GamePlayer) {
-//                    fun printResult(winner: Team, loser: Team) {
-//                        println("${winner.name} team won! (${loser.name}'s player has performed illegal operation)")
-//                    }
-//                    if (activeObject.team == firstTeam) {
-//                        printResult(secondTeam, firstTeam)
-//                        return false
-//                    } else if (activeObject.team == secondTeam) {
-//                        printResult(firstTeam, secondTeam)
-//                        return false
-//                    }
-//                } else {
-//                    throw e
-//                }
-//            }
-            arena.print(firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
+            } catch (e: PlayerBehaviorException) {
+                if (activeObject is GamePlayer) {
+                    fun printResult(winner: Team, loser: Team) {
+                        println("${winner.name} team won! (${loser.name}'s player has performed illegal operation)")
+                    }
+                    if (activeObject.team == firstTeam) {
+                        printResult(secondTeam, firstTeam)
+                        return false
+                    } else if (activeObject.team == secondTeam) {
+                        printResult(firstTeam, secondTeam)
+                        return false
+                    }
+                } else {
+                    throw e
+                }
+            }
+            printer.print(arena, firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
         }
         return true
     }

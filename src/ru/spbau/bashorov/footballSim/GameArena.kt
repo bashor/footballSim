@@ -139,45 +139,4 @@ class GameArena (
         }
         throw AchievablePositionNotFoundException()
     }
-
-    public fun print(team1Name: String, team1Score: Int, team2Name: String, team2Score: Int, out: PrintStream = System.out) {
-
-        private val BORDER_HORIZONTAL   = '\u2501' // ━
-        private val BORDER_VERTICAL     = '\u2503' // ┃
-
-        private val CORNER_TOP_LEFT     = '\u250F' // ┏
-        private val CORNER_TOP_RIGHT    = '\u2513' // ┓
-        private val CORNER_BOTTOM_LEFT  = '\u2517' // ┗
-        private val CORNER_BOTTOM_RIGHT = '\u251B' // ┛
-
-        private val GOAL                = '-'
-
-        fun line (cornerLeft: Char, cornerRight: Char) {
-            out.print(cornerLeft)
-            for (j in 0..goalStart - 1) {
-                out.print(BORDER_HORIZONTAL)
-            }
-            for (j in goalStart..goalEnd - 1) {
-                out.print(GOAL)
-            }
-            for (j in goalEnd..width - 1) {
-                out.print(BORDER_HORIZONTAL)
-            }
-            out.println(cornerRight)
-        }
-
-        out.println("$team1Name $team1Score - $team2Score $team2Name")
-
-        line(CORNER_TOP_LEFT, CORNER_TOP_RIGHT)
-
-        for (line in cells) {
-            out.print(BORDER_VERTICAL)
-            for (cell in line) {
-                out.print(cell.sym)
-            }
-            out.println(BORDER_VERTICAL)
-        }
-
-        line(CORNER_BOTTOM_LEFT, CORNER_BOTTOM_RIGHT)
-   }
 }
