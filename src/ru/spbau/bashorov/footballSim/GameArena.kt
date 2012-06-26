@@ -5,6 +5,7 @@ import java.util.ArrayList
 import java.util.List
 import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.exceptions.*
+import ru.spbau.bashorov.footballSim.public.gameObjects.Free
 import ru.spbau.bashorov.footballSim.public.utils.*
 import ru.spbau.bashorov.footballSim.utils.*
 

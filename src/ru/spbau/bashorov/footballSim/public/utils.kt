@@ -3,8 +3,8 @@ package ru.spbau.bashorov.footballSim.public.utils
 import ru.spbau.bashorov.footballSim.public.Arena
 import ru.spbau.bashorov.footballSim.public.Direction
 import ru.spbau.bashorov.footballSim.public.exceptions.AchievablePositionNotFoundException
+import ru.spbau.bashorov.footballSim.public.gameObjects.Free
 import ru.spbau.bashorov.footballSim.utils.sort
-import ru.spbau.bashorov.footballSim.Free
 
 public fun Tuple2<Int, Int>.calcDistanceTo(other: #(Int, Int)): Int =
     Math.max(Math.abs(this._1 - other._1), Math.abs(this._2 - other._2))

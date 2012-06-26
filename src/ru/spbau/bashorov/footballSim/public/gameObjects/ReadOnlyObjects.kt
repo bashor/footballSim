@@ -1,8 +1,9 @@
-package ru.spbau.bashorov.footballSim.public
+package ru.spbau.bashorov.footballSim.public.gameObjects
 
-import ru.spbau.bashorov.footballSim.GameObject
-import ru.spbau.bashorov.footballSim.GamePlayer
 import ru.spbau.bashorov.footballSim.Ball
+import ru.spbau.bashorov.footballSim.GamePlayer
+import ru.spbau.bashorov.footballSim.public.GameObject
+import ru.spbau.bashorov.footballSim.public.PlayerBehavior
 
 public abstract class ReadOnlyObject(protected val obj: GameObject): GameObject {
     public override val sym: Char = obj.sym

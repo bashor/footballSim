@@ -1,8 +1,10 @@
 package ru.spbau.bashorov.footballSim.public
 
-import ru.spbau.bashorov.footballSim.GameObject
-import ru.spbau.bashorov.footballSim.public.exceptions.ObjectNotFoundException
+import ru.spbau.bashorov.footballSim.Ball
 import ru.spbau.bashorov.footballSim.BallNotFoundException
+import ru.spbau.bashorov.footballSim.public.exceptions.ObjectNotFoundException
+import ru.spbau.bashorov.footballSim.public.gameObjects.PartnerPlayer
+import ru.spbau.bashorov.footballSim.public.gameObjects.ReadOnlyBall
 
 public trait Arena {
     public val height: Int
@@ -22,7 +24,7 @@ inline public fun Arena.getCoordinates(obj: GameObject): #(Int, Int) =
 
 inline public fun Arena.getBallCoordinates(): #(Int, Int) {
     try {
-        return getCoordinates({it is ReadOnlyBall})
+        return getCoordinates({it is ReadOnlyBall || it is Ball})
     } catch (e: ObjectNotFoundException) {
         throw BallNotFoundException()
     }

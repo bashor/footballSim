@@ -1,11 +1,13 @@
 package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
+import java.util.List
 import ru.spbau.bashorov.footballSim.public.*
-import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
+import ru.spbau.bashorov.footballSim.public.actions.DoNothing
+import ru.spbau.bashorov.footballSim.public.actions.KickBall
+import ru.spbau.bashorov.footballSim.public.actions.Move
 import ru.spbau.bashorov.footballSim.public.exceptions.UnknownActionException
 import ru.spbau.bashorov.footballSim.utils.shuffle
-import java.util.List
 
 class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameArena, val matchDuration: Int, private val sleep: Long = 0) {
     private class object {
@@ -120,7 +122,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
                 ball.kick(action)
                 runAction(ball)
             }
-            is Nothing -> {/*Do Nothing*/}
+            is DoNothing -> {/*Do Nothing*/}
             else -> throw UnknownActionException()
         }
     }
@@ -134,7 +136,7 @@ class GameEngine (val firstTeam: Team, val secondTeam: Team, val arena: GameAren
         val converter = if (invertCoordinates)
                 {(p: PlayerBehavior) -> GamePlayerInvertCoordinates(team, p, teamSymbols[i++])}
             else
-                {(p: PlayerBehavior) -> GamePlayerNormal(team, p, teamSymbols[i++])}
+                {(p: PlayerBehavior) -> GamePlayer(team, p, teamSymbols[i++])}
 
         activeObjects.addAll(players.map(converter))
     }

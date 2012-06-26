@@ -1,8 +1,9 @@
 import ru.spbau.bashorov.footballSim.public.*
+import ru.spbau.bashorov.footballSim.public.actions.*
 import ru.spbau.bashorov.footballSim.public.exceptions.AchievablePositionNotFoundException
 import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
+import ru.spbau.bashorov.footballSim.public.gameObjects.Free
 import ru.spbau.bashorov.footballSim.public.utils.*
-import ru.spbau.bashorov.footballSim.Free
 
 public class SimpleTeam(public override val name: String): Team {
     class SimplePlayer(): PlayerBehavior {
@@ -34,7 +35,7 @@ public class SimpleTeam(public override val name: String): Team {
             try {
                 return Move(stepTo(position, ballPosition, arena))
             } catch (e: AchievablePositionNotFoundException) {
-                return Nothing()
+                return DoNothing()
             }
         }
 
