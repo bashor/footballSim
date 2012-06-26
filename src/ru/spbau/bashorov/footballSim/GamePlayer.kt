@@ -29,13 +29,14 @@ private class GamePlayerInvertCoordinates(team: Team, playerBehavior: PlayerBeha
         invertCoordinates(arena, playerBehavior.getInitPosition(ArenaInvertCoordinatesWrapper(this, arena)))
 }
 
-private abstract class ArenaWrapperAbstract(protected final val player: GamePlayer, protected final val arena: GameArena): Arena {
+private open class ArenaWrapper(protected final val player: GamePlayer, protected final val arena: GameArena): Arena {
     public final override val height: Int = arena.height
     public final override val width: Int = arena.width
     public final override val goalWidth: Int = arena.goalWidth
-}
 
-private class ArenaWrapper(player: GamePlayer, arena: GameArena): ArenaWrapperAbstract(player, arena) {
+    public override fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = arena.getCoordinates(obj)
+    public override fun getBallCoordinates(): #(Int, Int) = arena.getBallCoordinates()
+
     public override fun get(x: Int, y: Int): GameObject {
         val obj = arena[x, y]
         return when (obj) {
@@ -50,17 +51,14 @@ private class ArenaWrapper(player: GamePlayer, arena: GameArena): ArenaWrapperAb
             is Free -> obj
             else -> throw Exception()
         }
-
     }
-    public override fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = arena.getCoordinates(obj)
-    public override fun getBallCoordinates(): #(Int, Int) = arena.getBallCoordinates()
 }
 
-private class ArenaInvertCoordinatesWrapper(player: GamePlayer, arena: GameArena): ArenaWrapperAbstract(player, arena) {
+private class ArenaInvertCoordinatesWrapper(player: GamePlayer, arena: GameArena): ArenaWrapper(player, arena) {
+    public override fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = invertCoordinates(arena, super.getCoordinates(obj))
+    public override fun getBallCoordinates(): #(Int, Int) = invertCoordinates(arena, super.getBallCoordinates())
     public override fun get(x: Int, y: Int): GameObject {
         val c = invertCoordinates(arena, #(x, y))
-        return arena[c._1, c._2]
+        return super.get(c._1, c._2)
     }
-    public override fun getCoordinates(obj: PlayerBehavior): #(Int, Int) = invertCoordinates(arena, arena.getCoordinates(obj))
-    public override fun getBallCoordinates(): #(Int, Int) = invertCoordinates(arena, arena.getBallCoordinates())
 }
