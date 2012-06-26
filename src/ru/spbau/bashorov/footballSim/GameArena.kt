@@ -1,6 +1,5 @@
 package ru.spbau.bashorov.footballSim
 
-import java.io.PrintStream
 import java.util.ArrayList
 import java.util.List
 import ru.spbau.bashorov.footballSim.public.*

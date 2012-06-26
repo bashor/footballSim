@@ -2,14 +2,14 @@ package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
 import java.util.List
+import ru.spbau.bashorov.footballSim.gameStatePrinter.DoNotPrint
 import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.actions.DoNothing
 import ru.spbau.bashorov.footballSim.public.actions.KickBall
 import ru.spbau.bashorov.footballSim.public.actions.Move
+import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
 import ru.spbau.bashorov.footballSim.public.exceptions.UnknownActionException
 import ru.spbau.bashorov.footballSim.utils.shuffle
-import ru.spbau.bashorov.footballSim.gameStatePrinter.DoNotPrint
-import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
 
 private class GameEngine (private val firstTeam: Team,
                   private val secondTeam: Team,

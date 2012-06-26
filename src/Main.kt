@@ -1,7 +1,6 @@
 package ru.spbau.bashorov.footballSim
 
 import ru.spbau.bashorov.footballSim.gameStatePrinter.VerticalArenaPrinter
-import ru.spbau.bashorov.footballSim.gameStatePrinter.HorizontalArenaPrinter
 
 fun main(args: Array<String>) {
     GameEngine(

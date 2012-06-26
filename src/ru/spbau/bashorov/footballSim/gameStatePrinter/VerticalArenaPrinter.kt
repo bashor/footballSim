@@ -1,8 +1,8 @@
 package ru.spbau.bashorov.footballSim.gameStatePrinter
 
+import java.io.PrintStream
 import ru.spbau.bashorov.footballSim.GameStatePrinter
 import ru.spbau.bashorov.footballSim.public.Arena
-import java.io.PrintStream
 
 public class VerticalArenaPrinter(private val out: PrintStream = System.out): GameStatePrinter {
     class object {
