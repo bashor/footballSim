@@ -36,7 +36,10 @@ class GameArena (
 
     public fun addActiveObjects(objects: ArrayList<ActiveObject>) {
         activeObjects.addAll(objects)
-        ball = activeObjects.find({ it is Ball }) as Ball
+        val found = activeObjects.find({ it is Ball })
+        if (found == null)
+            throw BallNotFoundException()
+        ball = found as Ball
     }
 
     private val goalListeners = ArrayList<()->Unit>()
