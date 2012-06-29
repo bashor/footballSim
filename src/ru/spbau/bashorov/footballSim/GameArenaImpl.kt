@@ -8,10 +8,10 @@ import ru.spbau.bashorov.footballSim.public.gameObjects.Free
 import ru.spbau.bashorov.footballSim.public.utils.*
 import ru.spbau.bashorov.footballSim.utils.*
 
-class GameArena (
+class GameArenaImpl (
         public override val height: Int,
         public override val width: Int,
-        public override val goalWidth: Int): Arena {
+        public override val goalWidth: Int): GameArena {
     {
         if (height % 2 == 0 || height <= 0) {
             throw IllegalArgumentException("height($height) must be odd and greater than 0.")
@@ -34,7 +34,7 @@ class GameArena (
     private fun set(p: #(Int, Int), v: GameObject) = set(p._1, p._2, v)
     private fun set(x: Int, y: Int, v: GameObject) = cells[y][x] = v
 
-    public fun addActiveObjects(objects: ArrayList<ActiveObject>) {
+    public override fun addActiveObjects(objects: List<ActiveObject>) {
         activeObjects.addAll(objects)
         val found = activeObjects.find({ it is Ball })
         if (found == null)
@@ -43,18 +43,18 @@ class GameArena (
     }
 
     private val goalListeners = ArrayList<()->Unit>()
-    public fun addGoalListener(handler: ()->Unit) {
+    public override fun addGoalListener(handler: ()->Unit) {
         goalListeners.add(handler)
     }
 
     private val outListeners = ArrayList<()->Unit>()
-    public fun addOutListener(handler: ()->Unit) {
+    public override fun addOutListener(handler: ()->Unit) {
         outListeners.add(handler)
     }
 
     private fun notify(listeners: List<()->Unit>) = listeners.forEach({ it() })
 
-    public fun resetObjectsPositions() {
+    public override fun resetObjectsPositions() {
         for (i in cells.indices) {
             for (j in cells[i].indices) {
                 cells[i][j] = Free()
@@ -73,7 +73,7 @@ class GameArena (
     private val goalStart = (width - goalWidth) / 2
     private val goalEnd = goalStart + goalWidth
 
-    public fun move(activeObject: GameObject, position: #(Int, Int)) {
+    public override fun move(activeObject: GameObject, position: #(Int, Int)) {
         var goal = false
         var out = false
         if (position._1 < 0 || position._1 >= width) {
@@ -114,7 +114,7 @@ class GameArena (
         this[currentPosition] = Free()
     }
 
-    public fun moveBallNearestTo(checker: (GameObject)->Boolean) {
+    public override fun moveBallNearestTo(checker: (GameObject)->Boolean) {
         fun tryMoveBallNear(o: GameObject): Boolean {
             val ballPosition = getCoordinates(ball!!)
             val position = getCoordinates(o)
@@ -131,7 +131,7 @@ class GameArena (
         getObjectNearestTo(ball!!, {o -> checker(o) && tryMoveBallNear(o) })
     }
 
-    public fun getObjectNearestTo(obj: GameObject, checker: (GameObject)->Boolean): GameObject {
+    private fun getObjectNearestTo(obj: GameObject, checker: (GameObject)->Boolean): GameObject {
         val objPosition = getCoordinates(obj)
         activeObjects.sort({a, b -> (getCoordinates(a).calcDistanceTo(objPosition)).compareTo(getCoordinates(b).calcDistanceTo(objPosition))})
         for (ao in activeObjects) {

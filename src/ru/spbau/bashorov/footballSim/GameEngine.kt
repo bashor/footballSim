@@ -9,6 +9,7 @@ import ru.spbau.bashorov.footballSim.public.actions.KickBall
 import ru.spbau.bashorov.footballSim.public.actions.Move
 import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
 import ru.spbau.bashorov.footballSim.public.exceptions.UnknownActionException
+import ru.spbau.bashorov.footballSim.IllegalArgumentException
 import ru.spbau.bashorov.footballSim.utils.shuffle
 
 private class GameEngine (private val firstTeam: Team,
@@ -118,7 +119,7 @@ private class GameEngine (private val firstTeam: Team,
         return true
     }
 
-    fun runAction(activeObject: ActiveObject) {
+    private fun runAction(activeObject: ActiveObject) {
         val action = activeObject.action(arena)
         when (action) {
             is Move -> {
@@ -134,7 +135,7 @@ private class GameEngine (private val firstTeam: Team,
         }
     }
 
-    fun registerPlayers(team: Team, players: List<PlayerBehavior>, teamSymbols: String, invertCoordinates: Boolean) {
+    private fun registerPlayers(team: Team, players: List<PlayerBehavior>, teamSymbols: String, invertCoordinates: Boolean) {
         if (players.size > teamSymbols.size) {
             throw IllegalArgumentException("Too many players in the $team(name=${team.name}) team.")
         }
