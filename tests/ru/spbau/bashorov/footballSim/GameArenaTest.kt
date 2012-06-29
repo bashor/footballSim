@@ -21,7 +21,7 @@ class GameArenaTest {
     val HEIGHT = 17
     val GOAL_WIDTH = 7
 
-    before val arena = GameArena(HEIGHT, WIDTH, GOAL_WIDTH)
+    before val arena = GameArenaImpl(HEIGHT, WIDTH, GOAL_WIDTH)
 
     test fun constructorTest() {
         assertEquals(arena.width, WIDTH)
@@ -31,27 +31,27 @@ class GameArenaTest {
 
     test fun constructorWithIllegalParamsTest() {
         failsWith<IllegalArgumentException> {
-            GameArena(2, WIDTH, GOAL_WIDTH)
+            GameArenaImpl(2, WIDTH, GOAL_WIDTH)
         }
 
         failsWith<IllegalArgumentException> {
-            GameArena(-1, WIDTH, GOAL_WIDTH)
+            GameArenaImpl(-1, WIDTH, GOAL_WIDTH)
         }
 
         failsWith<IllegalArgumentException> {
-            GameArena(HEIGHT, 2, GOAL_WIDTH)
+            GameArenaImpl(HEIGHT, 2, GOAL_WIDTH)
         }
 
         failsWith<IllegalArgumentException> {
-            GameArena(HEIGHT, -1, GOAL_WIDTH)
+            GameArenaImpl(HEIGHT, -1, GOAL_WIDTH)
         }
 
         failsWith<IllegalArgumentException> {
-            GameArena(HEIGHT, WIDTH, WIDTH + 1)
+            GameArenaImpl(HEIGHT, WIDTH, WIDTH + 1)
         }
 
         failsWith<IllegalArgumentException> {
-            GameArena(HEIGHT, WIDTH, 2)
+            GameArenaImpl(HEIGHT, WIDTH, 2)
         }
     }
 
