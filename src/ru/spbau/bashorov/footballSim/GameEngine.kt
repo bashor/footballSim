@@ -9,7 +9,6 @@ import ru.spbau.bashorov.footballSim.public.actions.KickBall
 import ru.spbau.bashorov.footballSim.public.actions.Move
 import ru.spbau.bashorov.footballSim.public.exceptions.PlayerBehaviorException
 import ru.spbau.bashorov.footballSim.public.exceptions.UnknownActionException
-import ru.spbau.bashorov.footballSim.IllegalArgumentException
 import ru.spbau.bashorov.footballSim.utils.shuffle
 
 private class GameEngine (private val firstTeam: Team,

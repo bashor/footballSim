@@ -1,20 +1,15 @@
 package ru.spbau.bashorov.footballSim
 
-import org.junit.Test as test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.test.failsWith
 import org.junit.Before as before
+import org.junit.Test as test
 import org.mockito.Mockito.*
 import ru.spbau.bashorov.footballSim.mockitoHelpers.*
-import kotlin.test.assertEquals
 import ru.spbau.bashorov.footballSim.public.ActiveObject
-import java.util.ArrayList
-import kotlin.test.failsWith
-import ru.spbau.bashorov.footballSim.public.gameObjects.Free
-import kotlin.test.assertTrue
-import kotlin.test.fail
 import ru.spbau.bashorov.footballSim.public.exceptions.CanNotMoveToPositionException
-import ru.spbau.bashorov.footballSim.public.exceptions.IllegalArgumentException
-import ru.spbau.bashorov.footballSim.public.getBallCoordinates
-import kotlin.test.assertFalse
+import ru.spbau.bashorov.footballSim.public.gameObjects.Free
 
 class GameArenaTest {
     val WIDTH = 11

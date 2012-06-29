@@ -1,33 +1,22 @@
 package ru.spbau.bashorov.footballSim
 
-import org.junit.Test as test
+import kotlin.test.assertTrue
+import kotlin.test.failsWith
 import org.junit.Before as before
-import org.mockito.Mockito.*
+import org.junit.Test as test
 import org.mockito.Matchers.*
 import ru.spbau.bashorov.footballSim.mockitoHelpers.*
-import ru.spbau.bashorov.footballSim.public.Team
-import ru.spbau.bashorov.footballSim.public.PlayerBehavior
-import ru.spbau.bashorov.footballSim.public.Arena
-import ru.spbau.bashorov.footballSim.public.actions.Action
-import kotlin.test.failsWith
-import ru.spbau.bashorov.footballSim.IllegalArgumentException
-import kotlin.test.fail
-import java.util.ArrayList
 import ru.spbau.bashorov.footballSim.public.ActiveObject
-import org.mockito.ArgumentCaptor
-import org.mockito.stubbing.Answer
-import org.mockito.invocation.InvocationOnMock
-import kotlin.test.assertTrue
-import kotlin.test.assertFalse
-import org.mockito.ArgumentMatcher
+import ru.spbau.bashorov.footballSim.public.PlayerBehavior
+import ru.spbau.bashorov.footballSim.public.Team
 
 public class GameEngineTest {
     test fun ConstructorWithIllegalArgsTest() {
         val team1 = mock(javaClass<Team>())
         val team2 = mock(javaClass<Team>())
 
-        ifCall(team1.getPlayers()).thenReturn(array(mock(javaClass<PlayerBehavior>())))
-        ifCall(team2.getPlayers()).thenReturn(array(mock(javaClass<PlayerBehavior>()), mock(javaClass<PlayerBehavior>())))
+        ifCall(team1.getPlayers()).thenReturn(array<PlayerBehavior>(mock(javaClass<PlayerBehavior>())))
+        ifCall(team2.getPlayers()).thenReturn(array<PlayerBehavior>(mock(javaClass<PlayerBehavior>()), mock(javaClass<PlayerBehavior>())))
 
         failsWith<IllegalArgumentException> {
             GameEngine(team1, team2, mock(javaClass<GameArena>()), 1)

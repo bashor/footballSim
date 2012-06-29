@@ -1,10 +1,9 @@
 package ru.spbau.bashorov.footballSim
 
-import ru.spbau.bashorov.footballSim.public.GameObject
-import ru.spbau.bashorov.footballSim.public.ActiveObject
-import java.util.ArrayList
-import ru.spbau.bashorov.footballSim.public.Arena
 import java.util.List
+import ru.spbau.bashorov.footballSim.public.ActiveObject
+import ru.spbau.bashorov.footballSim.public.Arena
+import ru.spbau.bashorov.footballSim.public.GameObject
 
 trait GameArena: Arena {
     public fun addActiveObjects(objects: List<ActiveObject>)

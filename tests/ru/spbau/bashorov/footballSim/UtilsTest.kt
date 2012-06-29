@@ -1,15 +1,11 @@
 package ru.spbau.bashorov.footballSim
 
 import kotlin.test.*
-import kotlin.test.*
-import java.util.*
-import org.junit.Test as test
 import org.junit.Before as before
-import org.mockito.Mockito.*
+import org.junit.Test as test
 import ru.spbau.bashorov.footballSim.mockitoHelpers.*
-import ru.spbau.bashorov.footballSim.utils.invertCoordinates
 import ru.spbau.bashorov.footballSim.public.Arena
-import org.junit.runners.JUnit4
+import ru.spbau.bashorov.footballSim.utils.invertCoordinates
 
 test class UtilsTest {
     val WIDTH = 11

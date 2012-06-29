@@ -2,9 +2,9 @@ package ru.spbau.bashorov.footballSim
 
 import ru.spbau.bashorov.footballSim.public.Arena
 import ru.spbau.bashorov.footballSim.public.GameObject
+import ru.spbau.bashorov.footballSim.public.exceptions.UnknownObjectException
 import ru.spbau.bashorov.footballSim.public.gameObjects.*
 import ru.spbau.bashorov.footballSim.utils.invertCoordinates
-import ru.spbau.bashorov.footballSim.public.exceptions.UnknownObjectException
 
 private open class ArenaWrapper(protected final val player: GamePlayer, protected final val arena: Arena): Arena {
     public final override val height: Int = arena.height

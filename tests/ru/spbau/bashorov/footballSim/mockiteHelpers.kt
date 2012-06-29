@@ -1,12 +1,12 @@
 package ru.spbau.bashorov.footballSim.mockitoHelpers
 
-import org.mockito.Mockito.*
-import org.mockito.stubbing.OngoingStubbing
-import org.mockito.Mockito
-import org.mockito.verification.VerificationMode
 import org.mockito.ArgumentCaptor
-import org.mockito.stubbing.Answer
+import org.mockito.Mockito
+import org.mockito.Mockito.*
 import org.mockito.invocation.InvocationOnMock
+import org.mockito.stubbing.Answer
+import org.mockito.stubbing.OngoingStubbing
+import org.mockito.verification.VerificationMode
 
 inline fun <T> mock(clazz: Class<T>) = Mockito.mock(clazz)!!
 inline fun <T> ifCall(methodCall: T): OngoingStubbing<T> = ru.spbau.bashorov.footballSim.MockitoHelper.ifCall(methodCall)!!
