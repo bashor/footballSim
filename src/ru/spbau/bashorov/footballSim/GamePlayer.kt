@@ -20,7 +20,8 @@ private class GamePlayerInvertCoordinates(team: Team, playerBehavior: PlayerBeha
     public override fun action(arena: Arena): Action {
         val readOnlyArena = ArenaInvertCoordinatesWrapper(this, arena)
         val position = invertCoordinates(readOnlyArena, arena.getCoordinates(this))
-        return playerBehavior.action(position, readOnlyArena).invert(readOnlyArena)
+        val action = playerBehavior.action(position, readOnlyArena)
+        return action.invert(readOnlyArena)
     }
 
     public override fun getInitPosition(arena: Arena): #(Int, Int) =

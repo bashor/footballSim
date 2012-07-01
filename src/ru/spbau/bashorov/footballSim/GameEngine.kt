@@ -69,7 +69,7 @@ private class GameEngine (private val firstTeam: Team,
 
     public fun run() {
         printer.print(arena, firstTeam.name, firstTeamScore, secondTeam.name, secondTeamScore)
-        for (time in 0..matchDuration) {
+        for (time in 0..matchDuration - 1) {
             if (!runOnce())
                 return
             if (sleep > 0)
