@@ -11,7 +11,7 @@ import ru.spbau.bashorov.footballSim.public.ActiveObject
 import ru.spbau.bashorov.footballSim.public.exceptions.CanNotMoveToPositionException
 import ru.spbau.bashorov.footballSim.public.gameObjects.Free
 
-class GameArenaTest {
+public class GameArenaImplTest {
     val WIDTH = 11
     val HEIGHT = 17
     val GOAL_WIDTH = 7

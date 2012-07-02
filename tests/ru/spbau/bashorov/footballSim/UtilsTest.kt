@@ -7,7 +7,7 @@ import ru.spbau.bashorov.footballSim.mockitoHelpers.*
 import ru.spbau.bashorov.footballSim.public.Arena
 import ru.spbau.bashorov.footballSim.utils.invertCoordinates
 
-test class UtilsTest {
+public class UtilsTest {
     val WIDTH = 11
     val HEIGHT = 17
     val LEFT_TOP_CORNER = #(0, 0)
