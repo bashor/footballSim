@@ -9,7 +9,6 @@ import org.mockito.Matchers.anyInt
 import org.mockito.Matchers.anyListOf
 import org.mockito.Matchers.anyString
 import org.mockito.Mockito.*
-import org.mockito.invocation.InvocationOnMock
 import ru.spbau.bashorov.footballSim.mockitoHelpers.*
 import ru.spbau.bashorov.footballSim.public.ActiveObject
 import ru.spbau.bashorov.footballSim.public.Arena
@@ -88,20 +87,19 @@ public class GameEngineTest {
         ifCall(team2.getPlayers()).thenReturn(team2players)
 
         var activeObjects = ArrayList<ActiveObject>()
-        ifCall(arena.addActiveObjects(anyListOf(javaClass<ActiveObject>())!!)).then { (i: InvocationOnMock) ->
-            val args = i.getArguments()!!
-            val l = args[0]
+        ifCall(arena.addActiveObjects(anyListOf(javaClass<ActiveObject>())!!)).then {
+            val args = it.getArguments()!!
             activeObjects.addAll(args[0] as List<ActiveObject>)
-            val t = 0//workaround, else doesn't compilation
+            run{}//workaround, else doesn't compilation
         }
 
-        ifCall(arena.get(FIRST_PLAYER_POSITION._1, FIRST_PLAYER_POSITION._2)).then { ()->
+        ifCall(arena.get(FIRST_PLAYER_POSITION._1, FIRST_PLAYER_POSITION._2)).then {
             activeObjects[0]
         }
-        ifCall(arena.get(SECOND_PLAYER_POSITION._1, SECOND_PLAYER_POSITION._2)).then { ()->
+        ifCall(arena.get(SECOND_PLAYER_POSITION._1, SECOND_PLAYER_POSITION._2)).then {
             activeObjects[1]
         }
-        ifCall(arena.get(0, 1)).then { ()->
+        ifCall(arena.get(0, 1)).then {
             activeObjects[2]
         }
     }

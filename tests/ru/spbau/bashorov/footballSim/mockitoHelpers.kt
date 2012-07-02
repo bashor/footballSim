@@ -22,16 +22,13 @@ inline fun <T> OngoingStubbing<T>.thenSet(out var f: Boolean) = this.then(object
     }
 })
 
-inline fun <T> OngoingStubbing<T>.then(f: ()->T) = this.then(object: Answer<T> {
-    public override fun answer(invocation: InvocationOnMock?): T? {
-        return f()
-    }
-})
+//inline fun OngoingStubbing<Unit>.then(f: (inv: InvocationOnMock)->Any?) = this.then(object: Answer<Unit> {
+//    public override fun answer(invocation: InvocationOnMock?): Unit { f(invocation!!) }
+//})
+
 
 inline fun <T> OngoingStubbing<T>.then(f: (inv: InvocationOnMock)->T) = this.then(object: Answer<T> {
-    public override fun answer(invocation: InvocationOnMock?): T? {
-        return f(invocation!!)
-    }
+    public override fun answer(invocation: InvocationOnMock?): T? = f(invocation!!)
 })
 
 inline fun <T> isA(clazz: Class<T>, ret: T): T {
