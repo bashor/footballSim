@@ -10,7 +10,7 @@ import org.mockito.stubbing.OngoingStubbing
 import org.mockito.verification.VerificationMode
 
 inline fun <T> mock(clazz: Class<T>) = Mockito.mock(clazz)!!
-inline fun <T> ifCall(methodCall: T): OngoingStubbing<T> = ru.spbau.bashorov.footballSim.MockitoHelper.ifCall(methodCall)!!
+inline fun <T> ifCall(methodCall: T): OngoingStubbing<T> = Mockito.`when`(methodCall)!!
 inline fun <T> verify(mock: T, mode: VerificationMode?) = Mockito.verify(mock, mode)!!
 inline fun <T> argumentCaptor(clazz: Class<T>) = ArgumentCaptor.forClass(clazz)!!
 inline fun <T> ArgumentCaptor<T>.get() = this.capture()!!
