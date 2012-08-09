@@ -1,21 +1,7 @@
 package ru.spbau.bashorov.footballSim
 
-import java.util.ArrayList
-import java.util.List
-import kotlin.test.failsWith
 import org.junit.Before as before
 import org.junit.Test as test
-import org.mockito.Matchers.anyInt
-import org.mockito.Matchers.anyListOf
-import org.mockito.Matchers.anyString
-import org.mockito.Mockito.*
-import ru.spbau.bashorov.footballSim.mockitoHelpers.*
-import ru.spbau.bashorov.footballSim.public.ActiveObject
-import ru.spbau.bashorov.footballSim.public.Arena
-import ru.spbau.bashorov.footballSim.public.GameObject
-import ru.spbau.bashorov.footballSim.public.PlayerBehavior
-import ru.spbau.bashorov.footballSim.public.Team
-import ru.spbau.bashorov.footballSim.public.actions.DoNothing
 
 public class GameEngineTest {
     test fun ConstructorWithIllegalArgsTest() {
@@ -90,6 +76,8 @@ public class GameEngineTest {
         ifCall(arena.addActiveObjects(anyListOf(javaClass<ActiveObject>())!!)).then {
             val args = it.getArguments()!!
             activeObjects.addAll(args[0] as List<ActiveObject>)
+//            returnUnit()
+//            Unit()
             run{}//workaround, else doesn't compilation
         }
 

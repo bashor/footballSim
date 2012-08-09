@@ -26,7 +26,6 @@ inline fun <T> OngoingStubbing<T>.thenSet(out var f: Boolean) = this.then(object
 //    public override fun answer(invocation: InvocationOnMock?): Unit { f(invocation!!) }
 //})
 
-
 inline fun <T> OngoingStubbing<T>.then(f: (inv: InvocationOnMock)->T) = this.then(object: Answer<T> {
     public override fun answer(invocation: InvocationOnMock?): T? = f(invocation!!)
 })
@@ -40,3 +39,5 @@ inline fun <T> eq(a: T): T {
     Matchers.eq(a)
     return a
 }
+
+inline fun Any.returnUnit(){}

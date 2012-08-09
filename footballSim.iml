@@ -9,8 +9,8 @@
     <orderEntry type="jdk" jdkName="1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="KotlinRuntime" level="project" />
-    <orderEntry type="library" name="org.mockito:mockito-all:1.9.0-rc1" level="application" />
     <orderEntry type="library" name="junit:junit:4.9" level="application" />
+    <orderEntry type="library" name="org.mockito:mockito-all:1.9.0" level="application" />
   </component>
 </module>
 
