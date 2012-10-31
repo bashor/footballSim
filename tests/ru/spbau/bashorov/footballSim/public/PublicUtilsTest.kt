@@ -8,8 +8,8 @@ import ru.spbau.bashorov.footballSim.public.gameObjects.Free
 import ru.spbau.bashorov.footballSim.public.utils.*
 
 public class PublicUtilsTest {
-    val position1 = #(1, 4)
-    val position2 = #(2, 2)
+    val position1 = Pair(1, 4)
+    val position2 = Pair(2, 2)
 
     test fun calcDistanceBetweenPositions() {
         val distance = 2
@@ -23,7 +23,7 @@ public class PublicUtilsTest {
     }
 
     test fun positionsPlus() {
-        val sum = #(3, 6)
+        val sum = Pair(3, 6)
 
         expect(sum) {
             position1 + position2
@@ -34,24 +34,24 @@ public class PublicUtilsTest {
     }
 
     test fun positionsMinus() {
-        expect(#(-1, 2)) {
+        expect(Pair(-1, 2)) {
             position1 - position2
         }
-        expect(#(1, -2)) {
+        expect(Pair(1, -2)) {
             position2 - position1
         }
     }
 
     test fun positionsEqualTest() {
         assertFalse(position1 == position2)
-        assertEquals(position1, #(1, 4))
-        assertEquals(position2, #(2, 2))
+        assertEquals(position1, Pair(1, 4))
+        assertEquals(position2, Pair(2, 2))
     }
 
     test fun positionsAchievableTester() {
         assertFalse(position1 isAchievableFrom position2)
-        assertTrue(position1 isAchievableFrom #(1,3))
-        assertTrue(position2 isAchievableFrom #(1,2))
+        assertTrue(position1 isAchievableFrom Pair(1, 3))
+        assertTrue(position2 isAchievableFrom Pair(1, 2))
     }
 
     test fun positionsValidator() {
@@ -67,9 +67,9 @@ public class PublicUtilsTest {
         val arena = mock(javaClass<Arena>())
         ifCall(arena.width).thenReturn(3)
         ifCall(arena.height).thenReturn(3)
-        ifCall(arena.get(isA(javaClass<#(Int,Int)>(), #(0,0)))).thenReturn(Free())
+        ifCall(arena.get(isA(javaClass<Pair<Int, Int>>(), Pair(0, 0)))).thenReturn(Free())
 
-        expect(#(1, 2)){
+        expect(Pair(1, 2)){
             stepTo(position2, position1, arena)
         }
     }

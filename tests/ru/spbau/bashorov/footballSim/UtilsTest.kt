@@ -10,11 +10,11 @@ import ru.spbau.bashorov.footballSim.utils.invertCoordinates
 public class UtilsTest {
     val WIDTH = 11
     val HEIGHT = 17
-    val LEFT_TOP_CORNER = #(0, 0)
-    val RIGHT_TOP_CORNER = #(WIDTH - 1, 0)
-    val LEFT_BOTTOM_CORNER = #(0, HEIGHT - 1)
-    val RIGHT_BOTTOM_CORNER = #(WIDTH - 1, HEIGHT - 1)
-    val CENTER = #(WIDTH / 2,HEIGHT / 2)
+    val LEFT_TOP_CORNER = Pair(0, 0)
+    val RIGHT_TOP_CORNER = Pair(WIDTH - 1, 0)
+    val LEFT_BOTTOM_CORNER = Pair(0, HEIGHT - 1)
+    val RIGHT_BOTTOM_CORNER = Pair(WIDTH - 1, HEIGHT - 1)
+    val CENTER = Pair(WIDTH / 2, HEIGHT / 2)
 
     before var mockedArena: Arena = mock(javaClass<Arena>())
 

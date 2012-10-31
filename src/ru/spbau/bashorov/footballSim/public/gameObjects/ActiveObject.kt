@@ -4,5 +4,5 @@ import ru.spbau.bashorov.footballSim.public.actions.Action
 
 public trait ActiveObject: GameObject {
     public fun action(arena: Arena): Action
-    public fun getInitPosition(arena: Arena): #(Int, Int)
+    public fun getInitPosition(arena: Arena): Pair<Int, Int>
 }

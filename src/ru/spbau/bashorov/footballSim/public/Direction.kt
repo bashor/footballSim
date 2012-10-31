@@ -1,21 +1,19 @@
 package ru.spbau.bashorov.footballSim.public
 
-import java.util.Map
-
-public enum class Direction(public val shift: #(Int, Int)) {
-    NOWHERE:       Direction(#( 0, 0))
-    LEFT:          Direction(#(-1, 0))
-    RIGHT:         Direction(#(+1, 0))
-    FORWARD:       Direction(#( 0, 1))
-    BACKWARD:      Direction(#( 0,-1))
-    FORWARD_LEFT:   Direction(#(-1, 1))
-    FORWARD_RIGHT:  Direction(#( 1, 1))
-    BACKWARD_LEFT:  Direction(#(-1,-1))
-    BACKWARD_RIGHT: Direction(#( 1,-1))
+public enum class Direction(public val shift: Pair<Int, Int>) {
+    NOWHERE:       Direction(Pair(0, 0))
+    LEFT:          Direction(Pair(-1, 0))
+    RIGHT:         Direction(Pair(+1, 0))
+    FORWARD:       Direction(Pair(0, 1))
+    BACKWARD:      Direction(Pair(0, -1))
+    FORWARD_LEFT:   Direction(Pair(-1, 1))
+    FORWARD_RIGHT:  Direction(Pair(1, 1))
+    BACKWARD_LEFT:  Direction(Pair(-1, -1))
+    BACKWARD_RIGHT: Direction(Pair(1, -1))
 
     // workaround, because abstract method for enum doesn't work fully now
     public fun invert(): Direction {
-        public val INVERT_DIRECTION: Map<Direction, Direction> = hashMap(
+        val INVERT_DIRECTION: Map<Direction, Direction> = hashMap(
                 Direction.NOWHERE       to Direction.NOWHERE,
                 Direction.LEFT          to Direction.RIGHT,
                 Direction.RIGHT         to Direction.LEFT,
@@ -30,13 +28,13 @@ public enum class Direction(public val shift: #(Int, Int)) {
     }
 }
 
-public val SHIFT_TO_DIRECTION: Map<#(Int, Int), Direction> = hashMap(
-        #( 0, 0) to Direction.NOWHERE,
-        #(-1, 0) to Direction.LEFT,
-        #(+1, 0) to Direction.RIGHT,
-        #( 0, 1) to Direction.FORWARD,
-        #( 0,-1) to Direction.BACKWARD,
-        #(-1, 1) to Direction.FORWARD_LEFT,
-        #( 1, 1) to Direction.FORWARD_RIGHT,
-        #(-1,-1) to Direction.BACKWARD_LEFT,
-        #( 1,-1) to Direction.BACKWARD_RIGHT)
+public val SHIFT_TO_DIRECTION: Map<Pair<Int, Int>, Direction> = hashMap(
+        Pair(0, 0) to Direction.NOWHERE,
+        Pair(-1, 0) to Direction.LEFT,
+        Pair(+1, 0) to Direction.RIGHT,
+        Pair(0, 1) to Direction.FORWARD,
+        Pair(0, -1) to Direction.BACKWARD,
+        Pair(-1, 1) to Direction.FORWARD_LEFT,
+        Pair(1, 1) to Direction.FORWARD_RIGHT,
+        Pair(-1, -1) to Direction.BACKWARD_LEFT,
+        Pair(1, -1) to Direction.BACKWARD_RIGHT)

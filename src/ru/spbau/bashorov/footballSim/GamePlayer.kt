@@ -10,7 +10,7 @@ private open class GamePlayer(public val team: Team,
     public override fun action(arena: Arena): Action =
         playerBehavior.action(arena.getCoordinates(this), ArenaWrapper(this, arena))
 
-    public override fun getInitPosition(arena: Arena): #(Int, Int) =
+    public override fun getInitPosition(arena: Arena): Pair<Int, Int> =
         playerBehavior.getInitPosition(ArenaWrapper(this, arena))
 
     public fun equals(obj: Any?): Boolean = this === obj || playerBehavior === obj
@@ -24,6 +24,6 @@ private class GamePlayerInvertCoordinates(team: Team, playerBehavior: PlayerBeha
         return action.invert(readOnlyArena)
     }
 
-    public override fun getInitPosition(arena: Arena): #(Int, Int) =
+    public override fun getInitPosition(arena: Arena): Pair<Int, Int> =
         invertCoordinates(arena, playerBehavior.getInitPosition(ArenaInvertCoordinatesWrapper(this, arena)))
 }

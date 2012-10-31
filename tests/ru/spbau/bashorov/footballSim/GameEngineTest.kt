@@ -1,7 +1,5 @@
 package ru.spbau.bashorov.footballSim
 
-import java.util.ArrayList
-import java.util.List
 import kotlin.test.*
 import org.junit.Before as before
 import org.junit.Test as test
@@ -29,7 +27,7 @@ public class GameEngineTest {
         verify(arena, atLeastOnce()).addActiveObjects(anyListOf(javaClass<ActiveObject>())!!)
 
         val inOrder = inOrder(arena);
-        inOrder.verify(arena, atLeastOnce())?.resetObjectsPositions()
+        inOrder!!.verify(arena, atLeastOnce())?.resetObjectsPositions()
         inOrder.verify(arena, atLeastOnce())?.moveBallNearestTo(isA(javaClass<(GameObject)->Boolean>(), {(GameObject)->true}))
 
         verify(arena, atLeastOnce()).addGoalListener(isA(javaClass<()->Unit>(), {}))
@@ -62,9 +60,9 @@ public class GameEngineTest {
     before val team1players = array<PlayerBehavior>(mock(javaClass<PlayerBehavior>()))
     before val team2players = array<PlayerBehavior>(mock(javaClass<PlayerBehavior>()))
 
-    val FIRST_PLAYER_POSITION = #(0, 0)
-    val SECOND_PLAYER_POSITION = #(0, 2)
-    val SECOND_PLAYER_RELATIVE_POSITION = #(0, 0)
+    val FIRST_PLAYER_POSITION = Pair(0, 0)
+    val SECOND_PLAYER_POSITION = Pair(0, 2)
+    val SECOND_PLAYER_RELATIVE_POSITION = Pair(0, 0)
 
     before fun initGameEnvironment() {
         ifCall(arena.width).thenReturn(1)
@@ -80,7 +78,7 @@ public class GameEngineTest {
         ifCall(team1.getPlayers()).thenReturn(team1players)
         ifCall(team2.getPlayers()).thenReturn(team2players)
 
-        var activeObjects = ArrayList<ActiveObject>()
+        var activeObjects = arrayList<ActiveObject>()
         ifCall(arena.addActiveObjects(anyListOf(javaClass<ActiveObject>())!!)).then {
             val args = it.getArguments()!!
             activeObjects.addAll(args[0] as List<ActiveObject>)
@@ -89,10 +87,10 @@ public class GameEngineTest {
             run{}//workaround, else doesn't compilation
         }
 
-        ifCall(arena.get(FIRST_PLAYER_POSITION._1, FIRST_PLAYER_POSITION._2)).then {
+        ifCall(arena.get(FIRST_PLAYER_POSITION.first, FIRST_PLAYER_POSITION.second)).then {
             activeObjects[0]
         }
-        ifCall(arena.get(SECOND_PLAYER_POSITION._1, SECOND_PLAYER_POSITION._2)).then {
+        ifCall(arena.get(SECOND_PLAYER_POSITION.first, SECOND_PLAYER_POSITION.second)).then {
             activeObjects[1]
         }
         ifCall(arena.get(0, 1)).then {

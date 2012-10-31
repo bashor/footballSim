@@ -1,12 +1,10 @@
 package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
-import java.util.List
 import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.exceptions.*
 import ru.spbau.bashorov.footballSim.public.gameObjects.Free
 import ru.spbau.bashorov.footballSim.public.utils.*
-import ru.spbau.bashorov.footballSim.utils.*
 
 class GameArenaImpl (
         public override val height: Int,
@@ -31,7 +29,7 @@ class GameArenaImpl (
     private var ball: Ball? = null
 
     public override fun get(x: Int, y: Int): GameObject = cells[y][x]
-    private fun set(p: #(Int, Int), v: GameObject) = set(p._1, p._2, v)
+    private fun set(p: Pair<Int, Int>, v: GameObject) = set(p.first, p.second, v)
     private fun set(x: Int, y: Int, v: GameObject) = cells[y][x] = v
 
     public override fun addActiveObjects(objects: List<ActiveObject>) {
@@ -73,20 +71,20 @@ class GameArenaImpl (
     private val goalStart = (width - goalWidth) / 2
     private val goalEnd = goalStart + goalWidth
 
-    public override fun move(activeObject: GameObject, position: #(Int, Int)) {
+    public override fun move(activeObject: GameObject, position: Pair<Int, Int>) {
         var goal = false
         var out = false
-        if (position._1 < 0 || position._1 >= width) {
+        if (position.first < 0 || position.first >= width) {
             if (activeObject !== ball)
                 throw IllegalArgumentException("Bad position ${position} for moving.")
             out = true
         }
-        if ( position._2 < 0 || position._2 >= height)
+        if ( position.second < 0 || position.second >= height)
         {
             if (activeObject !== ball)
                 throw IllegalArgumentException("Bad position ${position} for moving.")
 
-            goal = position._1 >= goalStart && position._1 < goalEnd
+            goal = position.first >= goalStart && position.first < goalEnd
             out = !goal
         }
         if (!goal && !out && this[position] !is Free) {
@@ -107,7 +105,7 @@ class GameArenaImpl (
             moveObject(currentPosition, position)
     }
 
-    private fun moveObject(currentPosition: #(Int, Int), newPosition: #(Int, Int)) {
+    private fun moveObject(currentPosition: Pair<Int, Int>, newPosition: Pair<Int, Int>) {
         if (currentPosition == newPosition)
             return
         this[newPosition] = this[currentPosition]
@@ -120,7 +118,7 @@ class GameArenaImpl (
             val position = getCoordinates(o)
 
             try {
-                val to = stepTo(position, #(position._1, height / 2), this)
+                val to = stepTo(position, Pair(position.first, height / 2), this)
                 moveObject(ballPosition, to)
                 return true
             } catch (e: AchievablePositionNotFoundException){
@@ -133,7 +131,7 @@ class GameArenaImpl (
 
     private fun getObjectNearestTo(obj: GameObject, checker: (GameObject)->Boolean): GameObject {
         val objPosition = getCoordinates(obj)
-        activeObjects.sort({a, b -> (getCoordinates(a).calcDistanceTo(objPosition)).compareTo(getCoordinates(b).calcDistanceTo(objPosition))})
+        activeObjects.sort(comparator<GameObject> { (a, b) -> (getCoordinates(a).calcDistanceTo(objPosition)).compareTo(getCoordinates(b).calcDistanceTo(objPosition)) })
         for (ao in activeObjects) {
             if (checker(ao)) {
                 return ao

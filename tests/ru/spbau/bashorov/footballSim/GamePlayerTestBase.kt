@@ -14,9 +14,9 @@ import ru.spbau.bashorov.footballSim.public.actions.Action
 private abstract class GamePlayerTestBase {
     abstract val returnAction: Action
     abstract val expectedAction: Action
-    abstract val actionPosition: #(Int, Int)
-    abstract val returnPosition: #(Int, Int)
-    abstract val expectedPosition: #(Int, Int)
+    abstract val actionPosition: Pair<Int, Int>
+    abstract val returnPosition: Pair<Int, Int>
+    abstract val expectedPosition: Pair<Int, Int>
     abstract val player: GamePlayer
 
     before val playerBehavior = mock(javaClass<PlayerBehavior>())
@@ -30,7 +30,7 @@ private abstract class GamePlayerTestBase {
 
         assertTrue(expectedAction === returnedAction)
         verify(playerBehavior, times(1)).action(eq(actionPosition), isA(javaClass<Arena>(), arena))
-        verify(playerBehavior, never()).action(isA(javaClass<#(Int,Int)>(), actionPosition), eq(arena))
+        verify(playerBehavior, never()).action(isA(javaClass<Pair<Int, Int>>(), actionPosition), eq(arena))
         verify(playerBehavior, never()).getInitPosition(arena)
     }
 
@@ -42,7 +42,7 @@ private abstract class GamePlayerTestBase {
         assertEquals(expectedPosition, returnedPosition)
         verify(playerBehavior, times(1)).getInitPosition(isA(javaClass<Arena>(), arena))
         verify(playerBehavior, never()).getInitPosition(arena)
-        verify(playerBehavior, never()).action(isA(javaClass<#(Int,Int)>(), #(0, 0)), isA(javaClass<Arena>(), arena))
+        verify(playerBehavior, never()).action(isA(javaClass<Pair<Int, Int>>(), Pair(0, 0)), isA(javaClass<Arena>(), arena))
     }
 
     before fun initEnvironment() {

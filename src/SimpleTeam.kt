@@ -7,18 +7,18 @@ import ru.spbau.bashorov.footballSim.public.utils.*
 
 public class SimpleTeam(public override val name: String): Team {
     class SimplePlayer(): PlayerBehavior {
-        override fun action(position: #(Int, Int), arena: Arena): Action {
+        override fun action(position: Pair<Int, Int>, arena: Arena): Action {
             val ballPosition = arena.getBallCoordinates()
             if (ballPosition.isAchievableFrom(position)) {
                 val goalStart = (arena.width - arena.goalWidth) / 2
                 val goalEnd = goalStart + arena.goalWidth
 
-                var ballNewPosition: #(Int, Int)? = null
-                if (ballPosition._2 == arena.height - 1 && ballPosition._1 >= goalStart && ballPosition._1 < goalEnd) {
-                    ballNewPosition = ballPosition + #(0,1)
+                var ballNewPosition: Pair<Int, Int>? = null
+                if (ballPosition.second == arena.height - 1 && ballPosition.first >= goalStart && ballPosition.first < goalEnd) {
+                    ballNewPosition = ballPosition + Pair(0, 1)
                 } else {
                     try {
-                        ballNewPosition = stepTo(ballPosition, #(arena.width / 2, arena.height), arena)
+                        ballNewPosition = stepTo(ballPosition, Pair(arena.width / 2, arena.height), arena)
                     } catch (e: AchievablePositionNotFoundException) {
                         // loging
                     }
@@ -39,11 +39,11 @@ public class SimpleTeam(public override val name: String): Team {
             }
         }
 
-        public override fun getInitPosition(arena: Arena): #(Int, Int) {
+        public override fun getInitPosition(arena: Arena): Pair<Int, Int> {
             val center = arena.width / 2
             for (i in 0..arena.height) {
                 for (j in -i..i) {
-                    val pos = #(center + j, i)
+                    val pos = Pair(center + j, i)
                     if (arena[pos] is Free) {
                         return pos
                     }

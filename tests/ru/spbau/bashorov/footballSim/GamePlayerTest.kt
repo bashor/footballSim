@@ -10,8 +10,8 @@ public class GamePlayerTest: GamePlayerTestBase() {
 
     override val returnAction: Action = mock(javaClass<Action>())
     override val expectedAction: Action = returnAction
-    override val actionPosition: #(Int, Int) = #(0, 0)
+    override val actionPosition: Pair<Int, Int> = Pair(0, 0)
 
-    override val returnPosition: #(Int, Int) = #(1, 3)
-    override val expectedPosition: #(Int, Int) = returnPosition
+    override val returnPosition: Pair<Int, Int> = Pair(1, 3)
+    override val expectedPosition: Pair<Int, Int> = returnPosition
 }

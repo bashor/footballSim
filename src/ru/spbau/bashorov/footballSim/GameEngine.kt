@@ -1,7 +1,6 @@
 package ru.spbau.bashorov.footballSim
 
 import java.util.ArrayList
-import java.util.List
 import ru.spbau.bashorov.footballSim.gameStatePrinter.DoNotPrint
 import ru.spbau.bashorov.footballSim.public.*
 import ru.spbau.bashorov.footballSim.public.actions.DoNothing
@@ -47,7 +46,7 @@ private class GameEngine (private val firstTeam: Team,
         arena.moveBallNearestTo({o -> o is GamePlayer && (o as GamePlayer).team === firstTeam})
 
         arena.addGoalListener({
-            val y = arena.getCoordinates(ball)._2
+            val y = arena.getCoordinates(ball).second
             var team = firstTeam
             if (y <= 0) {
                 secondTeamScore++

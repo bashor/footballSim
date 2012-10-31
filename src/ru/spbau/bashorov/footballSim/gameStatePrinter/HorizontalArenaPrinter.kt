@@ -10,8 +10,8 @@ public class HorizontalArenaPrinter(private val out: PrintStream = System.out): 
     }
     public override fun print(arena: Arena, team1Name: String, team1Score: Int, team2Name: String, team2Score: Int) {
 
-        private val goalStart = (arena.width - arena.goalWidth) / 2
-        private val goalEnd = goalStart + arena.goalWidth
+        val goalStart = (arena.width - arena.goalWidth) / 2
+        val goalEnd = goalStart + arena.goalWidth
 
         fun line (cornerLeft: Char, cornerRight: Char) {
             out.print(cornerLeft)

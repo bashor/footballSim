@@ -23,8 +23,8 @@ private class Ball: ActiveObject {
         return Move(newPosition)
     }
 
-    public override fun getInitPosition(arena: Arena): #(Int, Int) =
-        #(arena.width / 2, arena.height / 2)
+    public override fun getInitPosition(arena: Arena): Pair<Int, Int> =
+            Pair(arena.width / 2, arena.height / 2)
 
     public fun kick(kickAction: KickBall) {
         direction = kickAction.direction

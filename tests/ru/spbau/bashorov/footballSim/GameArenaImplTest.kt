@@ -63,7 +63,7 @@ public class GameArenaImplTest {
             mock(javaClass<ActiveObject>()),
             Ball())
 
-    val positions = arrayList(#(0, 0),#(1, 0), #(0, HEIGHT - 1), #(WIDTH / 2, HEIGHT / 2))
+    val positions = arrayList(Pair(0, 0), Pair(1, 0), Pair(0, HEIGHT - 1), Pair(WIDTH / 2, HEIGHT / 2))
 
     fun initArena() {
         for (i in 0..activeObjects.size - 2) {
@@ -85,7 +85,7 @@ public class GameArenaImplTest {
 
         for(i in 0..arena.width - 1) {
             for(j in 0..arena.height - 1) {
-                if (!positions.contains(#(i,j))) {
+                if (!positions.contains(Pair(i, j))) {
                     assertTrue("arena[$i, $j] is not Free"){arena[i, j] is Free}
                 }
             }
@@ -96,15 +96,15 @@ public class GameArenaImplTest {
         initArena()
 
         failsWith<IllegalArgumentException> {
-            arena.move(activeObjects[0], #(-1, 0))
+            arena.move(activeObjects[0], Pair(-1, 0))
         }
 
         failsWith<IllegalArgumentException> {
-            arena.move(activeObjects[0], #(0, -1))
+            arena.move(activeObjects[0], Pair(0, -1))
         }
 
         failsWith<IllegalArgumentException> {
-            arena.move(activeObjects[0], #(WIDTH, -1))
+            arena.move(activeObjects[0], Pair(WIDTH, -1))
         }
     }
 
@@ -127,10 +127,10 @@ public class GameArenaImplTest {
         val TO = 1
         arena.moveBallNearestTo{it == activeObjects[TO]}
 
-        assertTrue{arena[positions[TO]._1, positions[TO]._2 + 1] is Ball};
+        assertTrue{arena[positions[TO].first, positions[TO].second + 1] is Ball};
     }
 
-    fun ballGoToBesideGoal(lastMovePosition: #(Int, Int), goalExpected: Boolean) {
+    fun ballGoToBesideGoal(lastMovePosition: Pair<Int, Int>, goalExpected: Boolean) {
         initArena()
 
         val TO = 1
@@ -142,7 +142,7 @@ public class GameArenaImplTest {
 
         assertTrue{activeObjects.last is Ball}
 
-        arena.move(activeObjects.last!!, #(2, 0))
+        arena.move(activeObjects.last!!, Pair(2, 0))
         arena.move(activeObjects.last!!, lastMovePosition)
 
         assertEquals(goalCalled, goalExpected)
@@ -151,10 +151,10 @@ public class GameArenaImplTest {
     }
 
     test fun goalNotification() {
-        ballGoToBesideGoal(#(2, -1), true)
+        ballGoToBesideGoal(Pair(2, -1), true)
     }
 
     test fun goalFalseNotification() {
-        ballGoToBesideGoal(#(1, -1), false)
+        ballGoToBesideGoal(Pair(1, -1), false)
     }
 }

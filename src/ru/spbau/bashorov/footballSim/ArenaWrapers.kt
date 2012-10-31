@@ -30,7 +30,7 @@ private open class ArenaWrapper(protected final val player: GamePlayer, protecte
 
 private class ArenaInvertCoordinatesWrapper(player: GamePlayer, arena: Arena): ArenaWrapper(player, arena) {
     public override fun get(x: Int, y: Int): GameObject {
-        val c = invertCoordinates(arena, #(x, y))
-        return super.get(c._1, c._2)
+        val c = invertCoordinates(arena, Pair(x, y))
+        return super.get(c.first, c.second)
     }
 }

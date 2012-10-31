@@ -10,7 +10,12 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="KotlinRuntime" level="project" />
     <orderEntry type="library" name="junit:junit:4.9" level="application" />
-    <orderEntry type="library" name="org.mockito:mockito-all:1.9.0" level="application" />
+    <orderEntry type="library" name="mockito-all-1.9.0-rc1-sources" level="project" />
+    <orderEntry type="library" name="mockito-all-1.9.0-rc1" level="project" />
+    <orderEntry type="library" name="mockito-core-1.9.0-rc1-sources" level="project" />
+    <orderEntry type="library" name="mockito-core-1.9.0-rc1" level="project" />
+    <orderEntry type="library" name="objenesis-1.0" level="project" />
+    <orderEntry type="library" name="objenesis-1.0-sources" level="project" />
   </component>
 </module>
 
